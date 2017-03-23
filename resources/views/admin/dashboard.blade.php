@@ -4,73 +4,33 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expanded Navigation | Nifty - Admin Template</title>
+    <title>云校园 - 协同办公平台</title>
 
-
-    <!--STYLESHEET-->
-    <!--=================================================-->
-
-    <!--Open Sans Font [ OPTIONAL ] -->
+    <!--CSS-->
+    <!-- 字体 -->
      <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
-
-
-    <!--Bootstrap Stylesheet [ REQUIRED ]-->
+    <!--Bootstrap-->
     <link href="{{asset('back/css/bootstrap.min.css')}}" rel="stylesheet">
-
-
     <!--Nifty Stylesheet [ REQUIRED ]-->
     <link href="{{asset('back/css/nifty.min.css')}}" rel="stylesheet">
-
-
-    <!--Themify Icons [ OPTIONAL ]-->
+    <!--图标-->
     <link href="{{asset('back/themify-icons/themify-icons.min.css')}}" rel="stylesheet">
 
-
     <!--JAVASCRIPT-->
-    <!--=================================================-->
-
     <!--Page Load Progress Bar [ OPTIONAL ]-->
     <link href="{{asset('back/css/pace.min.css')}}" rel="stylesheet">
     <script src="{{asset('back/js/pace.min.js')}}"></script>
-
-
     <!--jQuery [ REQUIRED ]-->
     <script src="{{asset('back/js/jquery-2.2.4.min.js')}}"></script>
-
-
     <!--BootstrapJS [ RECOMMENDED ]-->
     <script src="{{asset('back/js/bootstrap.min.js')}}"></script>
-
-
-    <!--Nifty Admin [ RECOMMENDED ]-->
+    <!--主题模版-->
     <script src="{{asset('back/js/nifty.min.js')}}"></script>
-
-
-    <!--=================================================
-
-    REQUIRED
-    You must include this in your project.
-
-
-    RECOMMENDED
-    This category must be included but you may modify which plugins or components which should be included in your project.
-
-
-    OPTIONAL
-    Optional plugins. You may choose whether to include it in your project or not.
-
-
-    Detailed information and more samples can be found in the document.
-
-    =================================================-->
-
-
-
-
 
 </head>
 
 <!--TIPS-->
+<!-- 你可能要删除有demo- 的ID或者类，它们只用作示例中 -->
 <!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
 
 <body>
@@ -87,7 +47,7 @@
                     <a href="index.html" class="navbar-brand">
                         <img src="{{asset('back/img/logo.png')}}" alt="Nifty Logo" class="brand-icon">
                         <div class="brand-title">
-                            <span class="brand-text">Nifty</span>
+                            <span class="brand-text">云校园 - <span style="font-size:12px">协同办公平台</span></span>
                         </div>
                     </a>
                 </div>
@@ -250,8 +210,6 @@
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                         <!--End notifications dropdown-->
 
-
-
                         <!--Mega dropdown-->
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                         <li class="mega-dropdown">
@@ -369,30 +327,7 @@
 						                <span class="lang-name">Fran&ccedil;ais</span>
 						            </a>
 						        </li>
-						        <li>
-						            <!--Germany-->
-						            <a href="#">
-						                <img class="lang-flag" src="{{asset('back/img/flags/germany.png')}}" alt="Germany">
-						                <span class="lang-id">DE</span>
-						                <span class="lang-name">Deutsch</span>
-						            </a>
-						        </li>
-						        <li>
-						            <!--Italy-->
-						            <a href="#">
-						                <img class="lang-flag" src="{{asset('back/img/flags/italy.png')}}" alt="Italy">
-						                <span class="lang-id">IT</span>
-						                <span class="lang-name">Italiano</span>
-						            </a>
-						        </li>
-						        <li>
-						            <!--Spain-->
-						            <a href="#">
-						                <img class="lang-flag" src="{{asset('back/img/flags/spain.png')}}" alt="Spain">
-						                <span class="lang-id">ES</span>
-						                <span class="lang-name">Espa&ntilde;ol</span>
-						            </a>
-						        </li>
+
                             </ul>
                         </li>
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -730,8 +665,6 @@
             <!--===================================================-->
             <!--END CONTENT CONTAINER-->
 
-
-
             <!--MAIN NAVIGATION-->
             <!--===================================================-->
             <nav id="mainnav-container">
@@ -763,262 +696,153 @@
                                         <a href="#" class="list-group-item">
                                             <i class="ti-medall icon-lg icon-fw"></i> Link 1
                                         </a>
-                                        <a href="#" class="list-group-item">
-                                            <i class="ti-paint-roller icon-lg icon-fw"></i> Link 2
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <i class="ti-heart icon-lg icon-fw"></i> Link 3
-                                        </a>
+
                                     </div>
                                 </div>
 
-
-                                <!--Shortcut buttons-->
-                                <!--================================-->
-                                <div id="mainnav-shortcut">
-                                    <ul class="list-unstyled">
-                                        <li class="col-xs-4" data-content="Shortcut 1">
-                                            <a class="shortcut-grid" href="#">
-                                                <i class="ti-gallery"></i>
-                                            </a>
-                                        </li>
-                                        <li class="col-xs-4" data-content="Shortcut 2">
-                                            <a class="shortcut-grid" href="#">
-                                                <i class="ti-headphone"></i>
-                                            </a>
-                                        </li>
-                                        <li class="col-xs-4" data-content="Shortcut 3">
-                                            <a class="shortcut-grid" href="#">
-                                                <i class="ti-pin-alt"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!--================================-->
-                                <!--End shortcut buttons-->
-
+                                <!-- 左边的导航列表 -->
                                 <ul id="mainnav-menu" class="list-group">
-
-						            <!--Category name-->
-						            <li class="list-header">Link List</li>
-
-						            <!--Menu list item-->
-						            <li class="active-link">
-						                <a href="#">
-						                    <i class="ti-game"></i>
-						                    <span class="menu-title">Active state</span>
-						                </a>
-						            </li>
-
-						            <!--Menu list item-->
+						            <!--课题选择环节-->
 						            <li>
 						                <a href="#">
-						                    <i class="ti-alarm-clock"></i>
+						                    <i class="ti-receipt"></i>
 						                    <span class="menu-title">
-												<strong>Bolder</strong>
-											</span>
-						                </a>
-						            </li>
-
-						            <!--Menu list item-->
-						            <li>
-						                <a href="#">
-						                    <i class="ti-calendar"></i>
-						                    <span class="menu-title">
-												With label
-												<span class="label label-success pull-right">New</span>
-											</span>
-						                </a>
-						            </li>
-
-						            <!--Menu list item-->
-						            <li>
-						                <a href="#">
-						                    <i class="ti-cloud"></i>
-						                    <span class="menu-title">
-												With badge
-												<span class="pull-right badge badge-purple">7</span>
-											</span>
-						                </a>
-						            </li>
-
-						            <li class="list-divider"></li>
-
-						            <!--Category name-->
-						            <li class="list-header">Submenus</li>
-
-						            <!--Menu list item-->
-						            <li class="active-sub">
-						                <a href="#">
-						                    <i class="ti-wallet"></i>
-						                    <span class="menu-title">Active State</span>
-											<i class="arrow"></i>
-						                </a>
-
-						                <!--Submenu-->
-						                <ul class="collapse in">
-						                    <li><a href="#">Link</a></li>
-											<li class="active-link"><a href="#">Active link</a></li>
-											<li><a href="#">Another link</a></li>
-											<li><a href="#">Some else here</a></li>
-											<li class="list-divider"></li>
-											<li><a href="#">Separate link</a></li>
-
-						                </ul>
-						            </li>
-
-						            <!--Menu list item-->
-						            <li>
-						                <a href="#">
-						                    <i class="ti-pencil-alt2"></i>
-						                    <span class="menu-title">
-												<strong>Bolder</strong>
+												<strong>课题选择环节</strong>
 											</span>
 											<i class="arrow"></i>
 						                </a>
 
-						                <!--Submenu-->
+						                <!--子项目-->
 						                <ul class="collapse">
-						                    <li><a href="#">Link</a></li>
-											<li><a href="#">Another link</a></li>
-											<li><a href="#">Some else here</a></li>
-											<li class="list-divider"></li>
-											<li><a href="#">Separate link</a></li>
-
+						                    <li><a href="#">课题申报</a></li>
+											<li><a href="#">课题审核</a></li>
+											<li><a href="#">选题情况汇总</a></li>
+											<li><a href="#">指导教师安排</a></li>
+                                            <li><a href="#">课题汇总</a></li>
+                                            <li><a href="#">课题参与人确定</a></li>
+                                            <li><a href="#">课题修改申请审核</a></li>
 						                </ul>
 						            </li>
 
-						            <!--Menu list item-->
-						            <li>
+                                    <li>
 						                <a href="#">
-						                    <i class="ti-video-clapper"></i>
+						                    <i class="ti-files"></i>
 						                    <span class="menu-title">
-												With label
-												<span class="label label-danger pull-right">Hot</span>
+												<strong>开题报告环节</strong>
 											</span>
+											<i class="arrow"></i>
 						                </a>
 
-						                <!--Submenu-->
+						                <!--子项目-->
 						                <ul class="collapse">
-						                    <li><a href="#">Link</a></li>
-											<li><a href="#">Another link</a></li>
-											<li><a href="#">Some else here</a></li>
-											<li class="list-divider"></li>
-											<li><a href="#">Separate link</a></li>
-
+						                    <li><a href="#">开题报告审核</a></li>
+											<li><a href="#">开题答辩记录表</a></li>
+											<li><a href="#">开题答辩PPT</a></li>
+											<li><a href="#">开题答辩分组</a></li>
 						                </ul>
 						            </li>
 
-						            <!--Menu list item-->
-						            <li>
+                                    <li>
 						                <a href="#">
-						                    <i class="ti-basketball"></i>
+						                    <i class="ti-book"></i>
 						                    <span class="menu-title">
-												With badge
-												<span class="pull-right badge badge-success">3</span>
+												<strong>中期检查环节</strong>
 											</span>
+											<i class="arrow"></i>
 						                </a>
 
-						                <!--Submenu-->
+						                <!--子项目-->
 						                <ul class="collapse">
-						                    <li><a href="#">Link</a></li>
-											<li><a href="#">Another link</a></li>
-											<li><a href="#">Some else here</a></li>
-											<li class="list-divider"></li>
-											<li><a href="#">Separate link</a></li>
-
+						                    <li><a href="#">中期检查报告</a></li>
+											<li><a href="#">浏览周记</a></li>
 						                </ul>
 						            </li>
 
-						            <li class="list-divider"></li>
 
-						            <!--Category name-->
-						            <li class="list-header">Multi level</li>
+                                    <li>
+						                <a href="#">
+						                    <i class="ti-smallcap"></i>
+						                    <span class="menu-title">
+												<strong>程序测试环节</strong>
+											</span>
+											<i class="arrow"></i>
+						                </a>
+
+						                <!--子项目-->
+						                <ul class="collapse">
+						                    <li><a href="#">测试记录表</a></li>
+											<li><a href="#">系统测试答辩结果</a></li>
+                                            <li><a href="#">系统源代码</a></li>
+						                </ul>
+						            </li>
+
+
+                                    <li>
+						                <a href="#">
+						                    <i class="ti-comments-smiley"></i>
+						                    <span class="menu-title">
+												<strong>论文答辩环节</strong>
+											</span>
+											<i class="arrow"></i>
+						                </a>
+
+						                <!--子项目-->
+						                <ul class="collapse">
+						                    <li><a href="#">答案记录</a></li>
+											<li><a href="#">论文答辩PPT</a></li>
+                                            <li><a href="#">论文答辩分组</a></li>
+                                            <li><a href="#">审核论文初稿</a></li>
+                                            <li><a href="#">查看论文</a></li>
+                                            <li><a href="#">答辩评分汇总</a></li>
+						                </ul>
+						            </li>
+
 
                                     <!--Menu list item-->
                                     <li>
                                         <a href="#">
-                                            <i class="ti-support"></i>
-                                            <span class="menu-title">Menu Level</span>
+                                            <i class="ti-receipt"></i>
+                                            <span class="menu-title">论文成绩</span>
                                             <i class="arrow"></i>
                                         </a>
 
                                         <!--Submenu-->
                                         <ul class="collapse">
-                                            <li><a href="#">Second Level Item</a></li>
-                                            <li><a href="#">Second Level Item</a></li>
-                                            <li><a href="#">Second Level Item</a></li>
-                                            <li class="list-divider"></li>
+
                                             <li>
-                                                <a href="#">Third Level<i class="arrow"></i></a>
+                                                <a href="#">录入<i class="arrow"></i></a>
 
                                                 <!--Submenu-->
                                                 <ul class="collapse">
-                                                    <li><a href="#">Third Level Item</a></li>
-                                                    <li><a href="#">Third Level Item</a></li>
-                                                    <li><a href="#">Third Level Item</a></li>
-                                                    <li><a href="#">Third Level Item</a></li>
+                                                    <li><a href="#">指导教师成绩评审</a></li>
+                                                    <li><a href="#">评阅教师成绩评审</a></li>
+                                                    <li><a href="#">答辩委员会决议书</a></li>
                                                 </ul>
                                             </li>
-                                            <li>
-                                                <a href="#">Third Level<i class="arrow"></i></a>
-
-                                                <!--Submenu-->
-                                                <ul class="collapse">
-                                                    <li><a href="#">Third Level Item</a></li>
-                                                    <li><a href="#">Third Level Item</a></li>
-                                                    <li><a href="#">Third Level Item</a></li>
-                                                    <li class="list-divider"></li>
-                                                    <li><a href="#">Third Level Item</a></li>
-                                                    <li><a href="#">Third Level Item</a></li>
-                                                </ul>
-                                            </li>
+                                            <li><a href="#">统计</a></li>
+                                            <li><a href="#">成绩修改</a></li>
                                         </ul>
                                     </li>
 
+
+                                    <li>
+						                <a href="#">
+						                    <i class="ti-pencil-alt2"></i>
+						                    <span class="menu-title">
+												<strong>课题任务环节</strong>
+											</span>
+											<i class="arrow"></i>
+						                </a>
+
+						                <!--子项目-->
+						                <ul class="collapse">
+						                    <li><a href="#">时间段任务下达</a></li>
+											<li><a href="#">任务书审核</a></li>
+                                            <li><a href="#">任务书下达</a></li>
+						                </ul>
+						            </li>
+
                                 </ul>
-
-
-                                <!--Widget-->
-                                <!--================================-->
-                                <div class="mainnav-widget">
-
-                                    <!-- Show the button on collapsed navigation -->
-                                    <div class="show-small">
-                                        <a href="#" data-toggle="menu-widget" data-target="#demo-wg-server">
-                                            <i class="fa fa-desktop"></i>
-                                        </a>
-                                    </div>
-
-                                    <!-- Hide the content on collapsed navigation -->
-                                    <div id="demo-wg-server" class="hide-small mainnav-widget-content">
-                                        <ul class="list-group">
-                                            <li class="list-header pad-no pad-ver">Simple Widget</li>
-                                            <li class="mar-btm">
-                                                <span class="label label-primary pull-right">15%</span>
-                                                <p>CPU Usage</p>
-                                                <div class="progress progress-sm">
-                                                    <div class="progress-bar progress-bar-primary" style="width: 15%;">
-                                                        <span class="sr-only">15%</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="mar-btm">
-                                                <span class="label label-purple pull-right">75%</span>
-                                                <p>Bandwidth</p>
-                                                <div class="progress progress-sm">
-                                                    <div class="progress-bar progress-bar-purple" style="width: 75%;">
-                                                        <span class="sr-only">75%</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="pad-ver"><a href="#" class="btn btn-success btn-bock">View Details</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!--================================-->
-                                <!--End widget-->
-
                             </div>
                         </div>
                     </div>
@@ -1131,31 +955,20 @@
         <!-- FOOTER -->
         <!--===================================================-->
         <footer id="footer">
-
             <!-- Visible when footer positions are fixed -->
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <div class="show-fixed pull-right">
                 You have <a href="#" class="text-bold text-main"><span class="label label-danger">3</span> pending action.</a>
             </div>
-
-
-
             <!-- Visible when footer positions are static -->
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <div class="hide-fixed pull-right pad-rgt">
                 14GB of <strong>512GB</strong> Free.
             </div>
-
-
-
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <!-- Remove the class "show-fixed" and "hide-fixed" to make the content always appears. -->
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
             <p class="pad-lft">&#0169; 2016 Your Company</p>
-
-
-
         </footer>
         <!--===================================================-->
         <!-- END FOOTER -->
@@ -1169,12 +982,8 @@
         <!--===================================================-->
 
 
-
     </div>
     <!--===================================================-->
     <!-- END OF CONTAINER -->
-
-
-
     </body>
 </html>
