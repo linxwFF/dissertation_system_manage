@@ -16,7 +16,6 @@
 
 @section('container')
 	<div id="container" class="cls-container">
-
 		<!-- BACKGROUND IMAGE -->
 		<!--===================================================-->
 		<div id="bg-overlay" class="bg-img" style="background-image: url({{asset('back/img/bg-img-3.jpg')}})"></div>
