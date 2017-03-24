@@ -14,6 +14,13 @@ class CreateDissertationSelectTopicTable extends Migration
     public function up()
     {
         //论文选题
+        Schema::create('dissertationSelectTopic', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('teachBaseInfo_id', 10)->commit('教工号');      //教工表外键
+            $table->string('studentBaseInfo_id', 10)->commit('学号');      //学生表外键
+            $table->string('subjectInfo_id', 10)->commit('课题号');      //课题表外键
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateDissertationSelectTopicTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('dissertationSelectTopic');
     }
 }

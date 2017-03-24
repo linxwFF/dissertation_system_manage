@@ -14,14 +14,15 @@ class CreateDissertationAnswerCommitteemanTable extends Migration
     public function up()
     {
         //论文答辩委员
-//        Schema::create('dissertationGrade', function (Blueprint $table){
-//            $table->increments('id');
-//            $table->string('teachBaseInfo_ID', 10)->commit('教工号');
-//            $table->string('studentBaseInfo', 6)->commit('学号');
-//            $table->string('professionInfo', 8)->commit('专业号');
-//            $table->string('grade', 10)->commit('成绩');
-//            $table->timestamps();
-//        });
+        Schema::create('dissertationAnswerCommitteeman', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('name', 30)->commit('答辩委员姓名');
+            $table->string('duty_code', 3)->commit('答辩委员职务码');
+            $table->string('unit', 60)->commit('答辩委员单位');
+            $table->string('isTutor', 1)->commit('答辩委员是否博导');
+            $table->string('isChairman', 1)->commit('答辩委员是否主席');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -31,6 +32,6 @@ class CreateDissertationAnswerCommitteemanTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('dissertationAnswerCommitteeman');
     }
 }

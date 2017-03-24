@@ -14,6 +14,12 @@ class CreateSubjectTopicSelectTable extends Migration
     public function up()
     {
         //课题选择
+        Schema::create('subjectTopicSelect', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('studentBaseInfo_id', 10)->commit('学号');      //学生表外键
+            $table->string('subjectInfo_id', 10)->commit('课题号');      //课题表外键
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class CreateSubjectTopicSelectTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('subjectTopicSelect');
     }
 }

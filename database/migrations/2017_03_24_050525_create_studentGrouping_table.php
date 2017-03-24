@@ -14,6 +14,12 @@ class CreateStudentGroupingTable extends Migration
     public function up()
     {
         //学生分组表
+        Schema::create('studentGrouping', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('studentBaseInfo_id', 10)->commit('学号');      //学生表外键
+            $table->string('classesInfo_id', 10)->commit('班号');      //班级表外键
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class CreateStudentGroupingTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('studentGrouping');
     }
 }

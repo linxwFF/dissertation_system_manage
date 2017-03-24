@@ -14,6 +14,12 @@ class CreateAnswerPPTTable extends Migration
     public function up()
     {
         //答辩PPT
+        Schema::create('answerPPT', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('subjectInfo_id', 10)->commit('课题号');      //课题表外键
+            $table->string('studentBaseInfo_id', 10)->commit('学号');      //学生表外键
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class CreateAnswerPPTTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('answerPPT');
     }
 }

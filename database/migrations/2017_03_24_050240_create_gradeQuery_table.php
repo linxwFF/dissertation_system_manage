@@ -13,7 +13,14 @@ class CreateGradeQueryTable extends Migration
      */
     public function up()
     {
-        //
+        //成绩查询
+        Schema::create('gradeQuery', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('studentBaseInfo_id', 10)->commit('学号');      //学生表外键
+            $table->string('teachBaseInfo_id', 6)->commit('教工号');      //教工表外键
+            $table->string('subjectInfo_id', 10)->commit('课题号');      //课题表外键
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateGradeQueryTable extends Migration
      */
     public function down()
     {
-        //成绩查询
+        Schema::dropIfExists('gradeQuery');
     }
 }

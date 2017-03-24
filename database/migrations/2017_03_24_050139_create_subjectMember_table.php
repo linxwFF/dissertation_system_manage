@@ -13,7 +13,17 @@ class CreateSubjectMemberTable extends Migration
      */
     public function up()
     {
-        //
+        //课题参与人确定
+        Schema::create('subjectMember', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('subjectInfo_id', 10)->commit('课题号');      //课题表外键
+            $table->string('teachBaseInfo_id', 10)->commit('教工号');      //教工表外键
+            $table->string('studentBaseInfo_id', 10)->commit('学号');      //学生表外键
+            $table->string('professionInfo_id', 6)->commit('专业号');     //专业表外键
+            $table->string('headcount_class', 10)->commit('班级总人数');
+            $table->string('headcount_join', 10)->commit('参与总人数');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +33,6 @@ class CreateSubjectMemberTable extends Migration
      */
     public function down()
     {
-        //课题参与人确定
+        Schema::dropIfExists('subjectMember');
     }
 }

@@ -13,7 +13,14 @@ class CreateTeachGroupingTable extends Migration
      */
     public function up()
     {
-        //
+        //教职工分组
+        Schema::create('teachGrouping', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('teachBaseInfo_id', 10)->commit('教工号');      //教工表外键
+            $table->string('groupKind', 10)->commit('组别');
+            $table->string('jurisdiction', 4)->commit('权限');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateTeachGroupingTable extends Migration
      */
     public function down()
     {
-        //教职工分组
+        Schema::dropIfExists('teachGrouping');
     }
 }
