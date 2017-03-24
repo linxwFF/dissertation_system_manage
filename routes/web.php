@@ -12,11 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('admin.dashboard');
-});
-
-Route::get('/login', function () {
-    return view('admin.login');
+    echo "已经退出"."<a href='/login'>登录</a>";
 });
 
 Route::get('/404', function () {
@@ -26,3 +22,6 @@ Route::get('/404', function () {
 Route::get('/500', function () {
     return view('errors.500');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
