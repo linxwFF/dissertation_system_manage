@@ -11,6 +11,17 @@
 </head>
 
 <body>
+    <!-- 加载动画 -->
+    <div id="loading">
+        <div id="loading-center">
+            <div id="loading-center-absolute">
+                <div class="object" id="object_four"></div>
+                <div class="object" id="object_three"></div>
+                <div class="object" id="object_two"></div>
+                <div class="object" id="object_one"></div>
+            </div>
+        </div>
+    </div>
     @section('container')
     <div id="container" class="effect mainnav-lg">
 
@@ -22,9 +33,12 @@
         <div class="boxed">
             <!--CONTENT 主体内容-->
             <!--===================================================-->
+            <div id="content-container">
             @yield('content')
+            </div>
             <!--===================================================-->
             <!--END CONTENT 主体内容-->
+        </div>
 
             <!--MAIN 左边导航-->
             <!--===================================================-->

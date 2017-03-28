@@ -33,6 +33,25 @@
 
                     <!-- 左边的导航列表 -->
                     <ul id="mainnav-menu" class="list-group">
+
+                        <!--超级管理员-->
+                        <li>
+                            <a href="#">
+                                <i class="ti-lock"></i>
+						                    <span class="menu-title">
+												<strong>权限管理</strong>
+											</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--子项目-->
+                            <ul class="collapse">
+                                <li><a href="/permission/index"><i class="ti-target"></i>权限列表</a></li>
+                                <li><a href="#">角色列表</a></li>
+                                <li><a href="#">用户管理</a></li>
+                            </ul>
+                        </li>
+
                         <!--课题选择环节-->
                         <li>
                             <a href="#">

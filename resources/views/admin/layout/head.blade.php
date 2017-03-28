@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="_token" content="{{ csrf_token() }}"/>
 <title>云校园 - @yield('title')</title>
 
 <!--CSS-->
@@ -13,7 +14,7 @@
 <link href="{{asset('back/themify-icons/themify-icons.min.css')}}" rel="stylesheet">
 
 <!--JAVASCRIPT-->
-<!--Page Load Progress Bar [ OPTIONAL ]-->
+<!--页面加载进度条 Page Load Progress Bar [ OPTIONAL ]-->
 <link href="{{asset('back/css/pace.min.css')}}" rel="stylesheet">
 <script src="{{asset('back/js/pace.min.js')}}"></script>
 <!--jQuery [ REQUIRED ]-->

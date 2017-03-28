@@ -25,3 +25,10 @@ Route::get('/500', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+//权限管理
+Route::get('/permission/index', function () {
+    return view('admin.permission.permission.index');
+});
+
+Route::any('/permissionIndex', 'Admin\PermissionController@index');

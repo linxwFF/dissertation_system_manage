@@ -4,5 +4,5 @@
 @section('title','协同办公平台')
 
 @section('content')
-	@include('admin.layout.body')
+	@include('admin.layout.bodyHeader')
 @endsection
