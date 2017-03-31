@@ -22,13 +22,20 @@ Route::get('/404', function () {
 Route::get('/500', function () {
     return view('errors.500');
 });
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+// 使用 Auth 中间件,前缀 admin
+Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
 
-//权限管理
-Route::get('/permission/index', function () {
-    return view('admin.permission.permission.index');
+    Route::get('/home', 'HomeController@index');
+
+    //权限管理/权限列表
+    Route::get('/permission/index', 'Admin\Permission\PermissionController@index');
+    Route::get('/permission/{cid}/create','Admin\Permission\PermissionController@create');    //新增页面
+    Route::post('/permissionIndex', 'Admin\Permission\PermissionController@index');//请求数据/权限列表顶级目录
+    Route::get('/permission/{cid?}', 'Admin\Permission\PermissionController@index');//请求数据/权限列表子目录
+    Route::resource('permission', 'Admin\Permission\PermissionController');
+
+
 });
-
-Route::any('/permissionIndex', 'Admin\PermissionController@index');

@@ -53,7 +53,7 @@ $(function () {
                     serverSide: true,
 
                     ajax: {
-                        url: '/permissionIndex',
+                        url: '/admin/permissionIndex',
                         type: 'POST',
                         data: function (d) {
                             d.cid = cid;
@@ -79,23 +79,23 @@ $(function () {
                             // var row_delete = {{Gate::forUser(auth('admin')->user())->check('admin.permission.destroy') ? 1 :0}};
                             --}}
 
-                            var row_edit = 0;
-                            var row_delete = 0;
+                            var row_edit = 1;
+                            var row_delete = 1;
                             var str = '';
 
                             //下级菜单
                             if (cid == 0) {
-                                str += '<a style="margin:3px;"  href="/admin/permission/' + row['id'] + '" class="btn-xs text-success "><i class="fa fa-adn"></i>下级菜单</a>';
+                                str += '<a style="margin:3px;"  href="/admin/permission/' + row['id'] + '" class="btn-xs text-success "><i class="ti-arrow-circle-down"></i>下级菜单</a>';
                             }
 
                             //编辑
                             if (row_edit) {
-                                str += '<a style="margin:3px;" href="/admin/permission/' + row['id'] + '/edit" class="btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
+                                str += '<a style="margin:3px;" href="/admin/permission/' + row['id'] + '/edit" class="btn-xs text-success "><i class="ti-pencil"></i> 编辑</a>';
                             }
 
                             //删除
                             if (row_delete) {
-                                str += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="btn-xs text-danger"><i class="fa fa-times-circle"></i> 删除</a>';
+                                str += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn btn-xs text-danger"><i class="ti-close"></i> 删除</a>';
                             }
 
                             return str;
@@ -125,7 +125,7 @@ $(function () {
 
                 $("table").delegate('.delBtn', 'click', function () {
                     var id = $(this).attr('attr');
-                    $('.deleteForm').attr('action', '/admin/permission/' + id);
+                    $('.deleteForm').attr('action', '/admin/permission/' + id);     //添加ID到表单
                     $("#modal-delete").modal();
                 });
 
@@ -143,7 +143,22 @@ $(function () {
 
         <div class="panel">
 		    <div class="panel-heading">
-		        <h3 class="panel-title">Basic Data Tables with responsive plugin</h3>
+                <div class="row page-title-row" style="margin:5px;">
+                <div class="col-md-6">
+                    @if($cid == 0 )
+                    <span style="margin:3px;" id="cid" attr="" class="btn-flat text-info"> 顶级菜单</span>
+                    @else
+                    <a style="margin:3px;" href="/admin/permission"
+                       class="btn btn-warning btn-md animation-shake reloadBtn"><i class="ti-control-backward"></i> 返回顶级菜单
+                    </a>
+                    @endif
+                </div>
+
+                <div class="col-md-6 text-right">
+                    <a href="/admin/permission/0/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加权限 </a>
+                </div>
+                </div>
+
 		    </div>
 
 		    <div class="panel-body">
@@ -175,4 +190,34 @@ $(function () {
         </div>
         <!--===================================================-->
         <!--End page content-->
+
+<!-- 删除模态框 -->
+<div class="modal fade" id="modal-delete" tabIndex="-1">
+<div class="modal-dialog modal-warning">
+<div class="modal-content">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">
+        ×
+    </button>
+    <h4 class="modal-title">提示</h4>
+</div>
+<div class="modal-body">
+    <p class="lead">
+        <i class="fa fa-question-circle fa-lg"></i>
+        确认要删除这个权限吗?
+    </p>
+</div>
+<div class="modal-footer">
+    <form class="deleteForm" method="POST" action="/admin/list">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-danger">
+            <i class="fa fa-times-circle"></i> 确认
+        </button>
+    </form>
+</div>
+</div>
+</div>
+</div>
 @endsection

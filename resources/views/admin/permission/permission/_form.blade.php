@@ -16,8 +16,6 @@
 </div>
 @if($cid == 0 )
 {{--图标修改--}}
-    <link rel="stylesheet" href="/plugins/bootstrap-iconpicker/icon-fonts/font-awesome-4.2.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/plugins/bootstrap-iconpicker/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css"/>
 
     <div class="form-group">
     <label for="tag" class="col-md-3 control-label">图标</label>
@@ -25,14 +23,7 @@
         <!-- Button tag -->
         <button class="btn btn-default" name="icon" data-iconset="fontawesome" data-icon="{{ $icon?$icon:'fa-sliders' }}" role="iconpicker"></button>
     </div>
-
     </div>
-@section('js')
-
-    <script type="text/javascript" src="/plugins/bootstrap-iconpicker/bootstrap-iconpicker/js/iconset/iconset-fontawesome-4.3.0.min.js"></script>
-    <script type="text/javascript" src="/plugins/bootstrap-iconpicker/bootstrap-iconpicker/js/bootstrap-iconpicker.js"></script>
-
-@stop
 @endif
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">权限概述</label>
@@ -41,3 +32,14 @@
     </div>
 </div>
 
+@section('extendCss')
+    <!-- 图标样式 -->
+    <link rel="stylesheet" href="{{asset('/back/plugins/bootstrap-iconpicker/icon-fonts/font-awesome-4.2.0/css/font-awesome.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('/back/plugins/bootstrap-iconpicker/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css')}}"/>
+@stop
+
+@section('extendJs')
+    <!-- 图标JS -->
+    <script type="text/javascript" src="{{asset('/back/plugins/bootstrap-iconpicker/bootstrap-iconpicker/js/iconset/iconset-fontawesome-4.3.0.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('/back/plugins/bootstrap-iconpicker/bootstrap-iconpicker/js/bootstrap-iconpicker.js')}}"></script>
+@stop

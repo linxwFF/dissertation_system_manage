@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Permission;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,6 +22,7 @@ class PermissionController extends Controller
     public function index(Request $request, $cid = 0)
     {
         $cid = (int)$cid;
+        //列表数据
         if ($request->ajax()) {
             $data = array();
             $data['draw'] = $request->get('draw');
@@ -52,7 +53,23 @@ class PermissionController extends Controller
             return response()->json($data);
         }
 
-        return response()->json($data);
+        //子项目列表
+        $datas['cid'] = $cid;
+        if ($cid > 0) {
+            // $datas['data'] = Permission::find($cid);
+            $datas['data'] = [
+                'id' => 1,
+                'name' => "admin.permission",
+                'label' => "aaaa",
+                'description' => "",
+                "cid" => 0,
+                "icon" => "fa-users",
+                "created_at" => "2016-05-21 10:06:50",
+                "updated_at" => "2016-06-22 13:49:09",
+            ];
+        }
+
+        return view('admin.permission.permission.index', $datas);
     }
 
     /**
@@ -60,10 +77,16 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+     public function create(int $cid)
+     {
+         $data = [];
+         foreach ($this->fields as $field => $default) {
+             $data[$field] = old($field, $default);
+         }
+         $data['cid'] = $cid;
+
+         return view('admin.permission.permission.create', $data);
+     }
 
     /**
      * Store a newly created resource in storage.
@@ -85,6 +108,7 @@ class PermissionController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**
@@ -95,7 +119,25 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $permission = Permission::find((int)$id);
+        $permission = [
+            "id" => 1,
+            "name" => "admin.permission",
+            "label" => "权限管理",
+            "description" => "",
+            "cid" => 0,
+            "icon" => "fa-users",
+            "created_at" => "2016-05-21 10:06:50",
+            "updated_at" => "2016-06-22 13:49:09",
+        ];
+        // if (!$permission) return redirect('/admin/permission')->withErrors("找不到该权限!");
+        // $data = ['id' => (int)$id];
+        // foreach (array_keys($this->fields) as $field) {
+        // $data[$field] = old($field, $permission->$field);
+        // }
+        $data = $permission;
+
+        return view('admin.permission.permission.edit', $data);
     }
 
     /**
@@ -108,6 +150,7 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         //
+        echo "修改成功"+ $id;
     }
 
     /**
@@ -119,5 +162,6 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         //
+        echo "删除成功"+ $id;
     }
 }
