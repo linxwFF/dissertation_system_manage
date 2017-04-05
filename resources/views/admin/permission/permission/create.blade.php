@@ -4,11 +4,14 @@
 @section('title','协同办公平台')
 
 @section('content')
-    {{--页面标题--}}
-    @section('page_title','Page Title')
+
+    @section('page_title','Page Title')  {{--页面标题--}}
     @include('admin.layout.bodyHeader')  {{--主页面头--}}
 
     <div id="page-content">
+
+        @include('admin.partials.success')  {{--正确提示--}}
+        @include('admin.partials.errors')   {{--错误提示--}}
 
     <div class="panel">
         <div class="panel-heading">

@@ -21,8 +21,8 @@
 
 <script>
 $(function () {
-                // var cid = $('#cid').attr('attr');
-                var cid = 0;
+                var cid = $('#cid').attr('attr');
+                console.log(cid);
                 var table = $("#tags-table").DataTable({
                     // 本地化
                     language: {
@@ -53,10 +53,10 @@ $(function () {
                     serverSide: true,
 
                     ajax: {
-                        url: '/admin/permissionIndex',
+                        url: '/admin/permission/index',
                         type: 'POST',
                         data: function (d) {
-                            d.cid = cid;
+                            d.cid = cid;    //回调传参cid
                         },
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -117,10 +117,9 @@ $(function () {
 
                 //点击排序时候时回调函数
                 table.on('order.dt search.dt', function () {
-                    // table.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
-                    //     cell.innerHTML = i + 1;
-                    // });
-                    // console.log('点击排序时候时回调函数');
+                    table.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
                 }).draw();
 
                 $("table").delegate('.delBtn', 'click', function () {
@@ -134,28 +133,30 @@ $(function () {
 @endsection
 
 @section('content')
-        {{--页面标题--}}
-        @section('page_title','Page Title')
+        @section('page_title','Page Title')  {{--页面标题--}}
         @include('admin.layout.bodyHeader')  {{--主页面头--}}
         <!--Page content-->
         <!--===================================================-->
         <div id="page-content">
+
+            @include('admin.partials.success')  {{--正确提示--}}
+            @include('admin.partials.errors')   {{--错误提示--}}
 
         <div class="panel">
 		    <div class="panel-heading">
                 <div class="row page-title-row" style="margin:5px;">
                 <div class="col-md-6">
                     @if($cid == 0 )
-                    <span style="margin:3px;" id="cid" attr="" class="btn-flat text-info"> 顶级菜单</span>
+                    <span style="margin:3px;" id="cid" attr="{{$cid}}" class="btn-flat text-info"> 顶级菜单</span>
                     @else
-                    <a style="margin:3px;" href="/admin/permission"
+                    <a style="margin:3px;" href="/admin/permission" id="cid" attr="{{$cid}}"
                        class="btn btn-warning btn-md animation-shake reloadBtn"><i class="ti-control-backward"></i> 返回顶级菜单
                     </a>
                     @endif
                 </div>
 
                 <div class="col-md-6 text-right">
-                    <a href="/admin/permission/0/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加权限 </a>
+                    <a href="/admin/permission/{{$cid}}/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加权限 </a>
                 </div>
                 </div>
 
@@ -187,7 +188,6 @@ $(function () {
             </div>
 		</div>
 
-        </div>
         <!--===================================================-->
         <!--End page content-->
 

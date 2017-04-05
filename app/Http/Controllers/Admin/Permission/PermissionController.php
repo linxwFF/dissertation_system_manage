@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin\Permission;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Permission;
+
+use App\Http\Requests\PermissionCreateRequest;
+use App\Http\Requests\PermissionUpdateRequest;
 
 class PermissionController extends Controller
 {
@@ -22,7 +26,7 @@ class PermissionController extends Controller
     public function index(Request $request, $cid = 0)
     {
         $cid = (int)$cid;
-        //列表数据
+        //顶级菜单
         if ($request->ajax()) {
             $data = array();
             $data['draw'] = $request->get('draw');
@@ -32,41 +36,35 @@ class PermissionController extends Controller
             $columns = $request->get('columns');
             $search = $request->get('search');
             $cid = $request->get('cid', 0);
-
-            $data['data'] =
-            [0 => [
-                'id' => 1,
-                'name' => "admin.permission",
-                'label' => "权限管理",
-                'description' => "",
-                'cid' => 0,
-                'icon' => "fa-users",
-                'created_at' => '2016-05-21 10:06:50',
-                "updated_at" => "2016-06-22 13:49:09",
-            ],
-            ];
-
-            $data['draw'] = $request->get('draw');
-            $data['recordsFiltered'] = 0;   //过滤的记录
-            $data['recordsTotal'] = 0;
-
+            $data['recordsTotal'] = Permission::where('cid', $cid)->count();
+            if (strlen($search['value']) > 0) {
+                $data['recordsFiltered'] = Permission::where('cid', $cid)->where(function ($query) use ($search) {
+                    $query
+                        ->where('name', 'LIKE', '%' . $search['value'] . '%')
+                        ->orWhere('description', 'like', '%' . $search['value'] . '%')
+                        ->orWhere('label', 'like', '%' . $search['value'] . '%');
+                })->count();
+                $data['data'] = Permission::where('cid', $cid)->where(function ($query) use ($search) {
+                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')
+                        ->orWhere('description', 'like', '%' . $search['value'] . '%')
+                        ->orWhere('label', 'like', '%' . $search['value'] . '%');
+                })
+                    ->skip($start)->take($length)
+                    ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
+                    ->get();
+            } else {
+                $data['recordsFiltered'] = Permission::where('cid', $cid)->count();
+                $data['data'] = Permission::where('cid', $cid)->
+                skip($start)->take($length)
+                    ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
+                    ->get();
+            }
             return response()->json($data);
         }
-
-        //子项目列表
-        $datas['cid'] = $cid;
+        //子项目
+        $datas['cid'] = $cid;   //获取，赋值到页面
         if ($cid > 0) {
-            // $datas['data'] = Permission::find($cid);
-            $datas['data'] = [
-                'id' => 1,
-                'name' => "admin.permission",
-                'label' => "aaaa",
-                'description' => "",
-                "cid" => 0,
-                "icon" => "fa-users",
-                "created_at" => "2016-05-21 10:06:50",
-                "updated_at" => "2016-06-22 13:49:09",
-            ];
+            $datas['data'] = Permission::find($cid);
         }
 
         return view('admin.permission.permission.index', $datas);
@@ -94,9 +92,17 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionCreateRequest $request) //注入请求
     {
-        //
+        $permission = new Permission();
+        foreach (array_keys($this->fields) as $field) {
+            $permission->$field = $request->get($field, $this->fields[$field]);
+        }
+        $permission->save();
+        //Event::fire(new permChangeEvent());
+        //event(new \App\Events\userActionEvent('\App\Models\Admin\Permission', $permission->id, 1, '添加了权限:' . $permission->name . '(' . $permission->label . ')'));
+
+        return redirect('/admin/permission/' . $permission->cid)->withSuccess('添加成功！');
     }
 
     /**
@@ -119,22 +125,12 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        // $permission = Permission::find((int)$id);
-        $permission = [
-            "id" => 1,
-            "name" => "admin.permission",
-            "label" => "权限管理",
-            "description" => "",
-            "cid" => 0,
-            "icon" => "fa-users",
-            "created_at" => "2016-05-21 10:06:50",
-            "updated_at" => "2016-06-22 13:49:09",
-        ];
-        // if (!$permission) return redirect('/admin/permission')->withErrors("找不到该权限!");
-        // $data = ['id' => (int)$id];
-        // foreach (array_keys($this->fields) as $field) {
-        // $data[$field] = old($field, $permission->$field);
-        // }
+        $permission = Permission::find((int)$id);
+        if (!$permission) return redirect('/admin/permission')->withErrors("找不到该权限!");
+        $data = ['id' => (int)$id];
+        foreach (array_keys($this->fields) as $field) {
+            $data[$field] = old($field, $permission->$field);
+        }
         $data = $permission;
 
         return view('admin.permission.permission.edit', $data);
@@ -147,10 +143,17 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionUpdateRequest $request, $id)
     {
-        //
-        echo "修改成功"+ $id;
+        $permission = Permission::find((int)$id);
+        foreach (array_keys($this->fields) as $field) {
+            $permission->$field = $request->get($field, $this->fields[$field]);
+        }
+        $permission->save();
+        //Event::fire(new permChangeEvent());
+        //event(new \App\Events\userActionEvent('\App\Models\Admin\Permission', $permission->id, 3, '修改了权限:' . $permission->name . '(' . $permission->label . ')'));
+
+        return redirect('admin/permission/' . $permission->cid)->withSuccess('修改成功！');
     }
 
     /**
@@ -161,7 +164,26 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
-        echo "删除成功"+ $id;
+        $child = Permission::where('cid', $id)->first();
+
+        if ($child) {
+            return redirect()->back()
+                ->withErrors("请先将该权限的子权限删除后再做删除操作!");
+        }
+        $tag = Permission::find((int)$id);
+        foreach ($tag->roles as $v) {
+            $tag->roles()->detach($v->id);
+        }
+        if ($tag) {
+            $tag->delete();
+        } else {
+            return redirect()->back()
+                ->withErrors("删除失败");
+        }
+        //Event::fire(new permChangeEvent());
+        //event(new \App\Events\userActionEvent('\App\Models\Admin\Permission', $tag->id, 2, '删除了权限:' . $tag->name . '(' . $tag->label . ')'));
+
+        return redirect()->back()
+            ->withSuccess("删除成功");
     }
 }
