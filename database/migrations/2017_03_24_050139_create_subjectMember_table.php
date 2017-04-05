@@ -14,7 +14,7 @@ class CreateSubjectMemberTable extends Migration
     public function up()
     {
         //课题参与人确定
-        Schema::create('subjectMember', function (Blueprint $table){
+        Schema::create('subject_member', function (Blueprint $table){
             $table->increments('id');
             $table->string('subjectInfo_id', 10)->commit('课题号');      //课题表外键
             $table->string('teachBaseInfo_id', 10)->commit('教工号');      //教工表外键

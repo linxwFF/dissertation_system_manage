@@ -14,7 +14,7 @@ class CreateDissertationUpdateTopicTable extends Migration
     public function up()
     {
         //论文题目修改
-        Schema::create('dissertationUpdateTopic', function (Blueprint $table){
+        Schema::create('dissertation_update_topic', function (Blueprint $table){
             $table->increments('id');
             $table->string('studentBaseInfo_id', 10)->commit('学号');      //学生表外键
             $table->string('subjectInfo_id', 10)->commit('课题号');      //课题表外键

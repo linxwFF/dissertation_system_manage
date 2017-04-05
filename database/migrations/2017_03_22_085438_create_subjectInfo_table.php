@@ -14,7 +14,7 @@ class CreateSubjectInfoTable extends Migration
     public function up()
     {
         //课题信息表
-        Schema::create('subjectInfo', function (Blueprint $table) {
+        Schema::create('subject_info', function (Blueprint $table) {
             $table->increments('id');
             $table->string('subject_name',50)->comment('课程名称');
             $table->string('subject_number',10)->comment('项目号');

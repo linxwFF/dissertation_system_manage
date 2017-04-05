@@ -14,7 +14,7 @@ class CreateAnswerTeamQueryTable extends Migration
     public function up()
     {
         //答辩小组查询
-        Schema::create('answerTeamQuery', function (Blueprint $table){
+        Schema::create('answer_team_query', function (Blueprint $table){
             $table->increments('id');
             $table->string('teachBaseInfo_id', 6)->commit('教工号');      //教工表外键
             $table->string('professionInfo_id', 6)->commit('专业号');     //专业表外键

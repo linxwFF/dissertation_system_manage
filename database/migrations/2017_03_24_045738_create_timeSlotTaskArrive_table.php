@@ -14,7 +14,7 @@ class CreateTimeSlotTaskArriveTable extends Migration
     public function up()
     {
         //时间段任务下达
-        Schema::create('timeSlotTaskArrive', function (Blueprint $table){
+        Schema::create('time_slot_task_arrive', function (Blueprint $table){
             $table->increments('id');
             $table->string('teach_reasearch_room_ID', 10)->commit('教研室ID');
             $table->string('byTeachStaffNo', 10)->commit('教工号来自');

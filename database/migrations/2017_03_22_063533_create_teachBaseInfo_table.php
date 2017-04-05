@@ -14,7 +14,7 @@ class CreateTeachBaseInfoTable extends Migration
     public function up()
     {
         //教职工基础数据表
-        Schema::create('teachBaseInfo', function (Blueprint $table) {
+        Schema::create('teach_base_info', function (Blueprint $table) {
             $table->increments('id');
             $table->string('password')->comment('密码');
             $table->string('unit_number',8)->comment('单位号');

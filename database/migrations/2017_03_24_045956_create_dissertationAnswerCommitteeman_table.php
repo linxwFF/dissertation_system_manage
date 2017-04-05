@@ -14,7 +14,7 @@ class CreateDissertationAnswerCommitteemanTable extends Migration
     public function up()
     {
         //论文答辩委员
-        Schema::create('dissertationAnswerCommitteeman', function (Blueprint $table){
+        Schema::create('dissertation_answer_committeeman', function (Blueprint $table){
             $table->increments('id');
             $table->string('name', 30)->commit('答辩委员姓名');
             $table->string('duty_code', 3)->commit('答辩委员职务码');

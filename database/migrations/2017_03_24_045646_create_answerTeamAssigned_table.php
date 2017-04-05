@@ -14,7 +14,7 @@ class CreateAnswerTeamAssignedTable extends Migration
     public function up()
     {
         //答辩小组分配
-        Schema::create('answerTeamAssigned', function (Blueprint $table){
+        Schema::create('answer_team_assigned', function (Blueprint $table){
             $table->increments('id');
             $table->string('studentBaseInfo_id', 10)->commit('学号'); //学生表外键
             $table->string('professionInfo_id', 6)->commit('专业号'); //专业表外键

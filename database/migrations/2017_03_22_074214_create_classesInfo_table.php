@@ -13,7 +13,7 @@ class CreateClassesInfoTable extends Migration
      */
     public function up()
     {
-        Schema::create('classesInfo', function (Blueprint $table) {
+        Schema::create('classes_info', function (Blueprint $table) {
             $table->increments('id');
             $table->string('classes')->comment('班級');
             $table->string('date_build')->comment('建班年月');

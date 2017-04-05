@@ -14,7 +14,7 @@ class CreateTaskdocTable extends Migration
     public function up()
     {
         //任务书信息
-        Schema::create('taskdoc', function (Blueprint $table) {
+        Schema::create('task_doc', function (Blueprint $table) {
             $table->increments('id');
             $table->string('subject_name')->comment('课题号');   //课题表外键
             $table->string('studentBaseInfo_id')->comment('学生号');   //学生表外键

@@ -14,7 +14,7 @@ class CreateProfessionInfoTable extends Migration
     public function up()
     {
         //专业信息表
-        Schema::create('professionInfo', function (Blueprint $table) {
+        Schema::create('profession_info', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',60)->comment('专业名称');
             $table->string('name_short',20)->comment('专业简称');

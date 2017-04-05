@@ -14,7 +14,7 @@ class CreateMidtimeExamTable extends Migration
     public function up()
     {
         //中期检查
-        Schema::create('midtimeExam', function (Blueprint $table) {
+        Schema::create('midtime_exam', function (Blueprint $table) {
             $table->increments('id');
             $table->string('professionInfo_id',10)->comment('课题号'); //专业表外键
             $table->string('title',10)->comment('设计题目');

@@ -13,7 +13,7 @@ class CreateOpeningReportTable extends Migration
      */
     public function up()
     {
-        Schema::create('openingReport', function (Blueprint $table) {
+        Schema::create('opening_report', function (Blueprint $table) {
             $table->increments('id');
             $table->string('professionInfo_id',6)->comment('专业号');  //专业表的外键
             $table->string('subjectDesign',50)->comment('设计题目');

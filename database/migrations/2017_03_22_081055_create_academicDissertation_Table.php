@@ -14,7 +14,7 @@ class CreateAcademicDissertationTable extends Migration
     public function up()
     {
         //学问论文表
-        Schema::create('academicDissertation', function (Blueprint $table) {
+        Schema::create('academic_dissertation', function (Blueprint $table) {
             $table->increments('id');
             $table->string('teach_reasearch_room_ID',10)->comment('教研室ID');
             $table->string('title_chinese',60)->comment('论文题目');

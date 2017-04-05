@@ -14,7 +14,7 @@ class CreateDissertationGradeTable extends Migration
     public function up()
     {
         //论文成绩
-        Schema::create('dissertationGrade', function (Blueprint $table){
+        Schema::create('dissertation_grade', function (Blueprint $table){
             $table->increments('id');
             $table->string('teachBaseInfo_id', 10)->commit('教工号');
             $table->string('studentBaseInfo', 6)->commit('学号');

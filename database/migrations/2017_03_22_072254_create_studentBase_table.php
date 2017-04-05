@@ -13,7 +13,7 @@ class CreateStudentBaseTable extends Migration
      */
     public function up()
     {
-        Schema::create('studentBaseInfo', function (Blueprint $table) {
+        Schema::create('student_base_info', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',30)->comment('姓名');
             $table->string('name_spell',60)->comment('姓名拼音');
