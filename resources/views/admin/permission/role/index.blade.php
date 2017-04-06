@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
 {{--标题--}}
-@section('title','协同办公平台')
+@section('title','角色列表')
 
 {{--扩展的css--}}
 @section('extendCss')

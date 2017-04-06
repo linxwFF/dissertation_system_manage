@@ -36,10 +36,14 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
     Route::get('/permission/{cid?}', 'Admin\Permission\PermissionController@index');//请求数据/权限列表子目录
     Route::resource('permission', 'Admin\Permission\PermissionController');
 
-    //角色管理路由
-    Route::get('role/index', 'Admin\Permission\RoleController@index');
-    Route::post('role/index', 'Admin\Permission\RoleController@index');
+    //权限管理/角色管理
+    Route::get('/role/index', 'Admin\Permission\RoleController@index');
+    Route::post('/role/index', 'Admin\Permission\RoleController@index');    //dataTable，Ajax请求数据
     Route::resource('role', 'Admin\Permission\RoleController');
 
+    //权限管理/用户管理
+    Route::get('/user/index', 'Admin\Permission\UserController@index');
+    Route::post('/user/index', 'Admin\Permission\UserController@index');  //dataTable，Ajax请求数据
+    Route::resource('user', 'Admin\Permission\UserController');
 
 });

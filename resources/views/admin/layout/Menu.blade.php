@@ -48,7 +48,7 @@
                             <ul class="collapse">
                                 <li><a href="/admin/permission/index"><i class="ti-target"></i>权限列表</a></li>
                                 <li><a href="/admin/role/index">角色列表</a></li>
-                                <li><a href="#">用户管理</a></li>
+                                <li><a href="/admin/user/index">用户管理</a></li>
                             </ul>
                         </li>
 
