@@ -1,46 +1,45 @@
-@extends('admin.layouts.base')
+@extends('admin.layout.master')
 
-@section('title','控制面板')
-
-@section('pageHeader','控制面板')
-
-@section('pageDesc','DashBoard')
+@section('title','编辑角色') {{--标题--}}
 
 @section('content')
-    <div class="main animsition">
-        <div class="container-fluid">
 
-            <div class="row">
-                <div class="">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">编辑角色</h3>
-                        </div>
-                        <div class="panel-body">
+    @section('page_title','Page Title')  {{--页面标题--}}
+    @include('admin.layout.bodyHeader')  {{--主页面头--}}
 
-                            @include('admin.partials.errors')
-                            @include('admin.partials.success')
-                            <form class="form-horizontal" role="form" method="POST"
-                                  action="/admin/role/{{ $id }}">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <input type="hidden" name="_method" value="PUT">
-                                <input type="hidden" name="id" value="{{ $id }}">
-                                @include('admin.role._form')
-                                <div class="form-group">
-                                    <div class="col-md-7 col-md-offset-3">
-                                        <button type="submit" class="btn btn-primary btn-md">
-                                            <i class="fa fa-plus-circle"></i>
-                                            保存
-                                        </button>
-                                    </div>
-                                </div>
+    <div id="page-content">
 
-                            </form>
+        @include('admin.partials.success')  {{--正确提示--}}
+        @include('admin.partials.errors')   {{--错误提示--}}
 
-                        </div>
-                    </div>
-                </div>
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="row page-title-row" style="margin:5px;">
+            <div class="col-md-6">
+                <h3 class="panel-title">编辑角色</h3>
+            </div>
             </div>
         </div>
+
+        <div class="panel-body">
+
+            <form class="form-horizontal" role="form" method="POST"
+                  action="/admin/role/{{ $id }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="id" value="{{ $id }}">
+                @include('admin.permission.role._form')
+                <div class="form-group">
+                    <div class="col-md-7 col-md-offset-3">
+                        <button type="submit" class="btn btn-primary btn-md">
+                            <i class="fa fa-plus-circle"></i>
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </div>
-@stop
+
+@endsection
