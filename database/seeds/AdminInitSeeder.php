@@ -33,12 +33,6 @@ VALUES
 	(13, 'admin.user.destroy', '用户删除', '', 1, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
 SQL
         );
-        $admin = new \App\Models\Admin\AdminUser();
-        $admin->
-        id = 1;
-        $admin->name = 'root';
-        $admin->email = 'root@admin.com';
-        $admin->password = bcrypt('root');
-        $admin->save();
+
     }
 }

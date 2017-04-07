@@ -16,9 +16,15 @@ class CreateTeachBaseInfoTable extends Migration
         //教职工基础数据表
         Schema::create('teach_base_info', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('password')->comment('密码');
-            $table->string('unit_number',8)->comment('单位号');
+
+            //登录必须字段
             $table->string('name',30)->comment('姓名');
+            $table->string('email')->unique()->comment('邮箱');
+            $table->string('password')->comment('密码');
+            $table->rememberToken();
+            $table->timestamps();
+
+            $table->string('unit_number',8)->comment('单位号');
             $table->string('name_spell',60)->comment('姓名拼音');
             $table->string('teach_reasearch_room_ID',10)->comment('教研室ID');
             $table->string('name_before',30)->comment('曾用名');
@@ -48,7 +54,6 @@ class CreateTeachBaseInfoTable extends Migration
             $table->string('record_number',10)->comment('档案编号');
             $table->text('record_text')->comment('档案文本');
             $table->string('current_state_code',2)->comment('当前状态码');
-            $table->timestamps();
         });
     }
 

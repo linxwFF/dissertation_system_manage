@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Admin\AdminUser;
 use App\Models\Admin\Role;
+use App\Models\StudentBaseInfo;
+use App\Models\TeachBaseInfo;
+
 
 use App\Http\Requests\AdminUserCreateRequest;
 use App\Http\Requests\AdminUserUpdateRequest;
@@ -53,7 +56,7 @@ class UserController extends Controller
                     ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
                     ->get();
             }
-
+            dd($data);
             return response()->json($data);
         }
 
@@ -107,7 +110,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $teach = AdminUser::join('teach_base_info as teach','teach.id','=','admin_users.user_id')
+                        ->where('user_role_type','App\Models\TeachBaseInfo')->get()->toArray();
+
+        $student = AdminUser::join('student_base_info as student','student.id','=','admin_users.user_id')
+                        ->where('user_role_type','App\Models\StudentBaseInfo')->get()->toArray();
+        // $student = StudentBaseInfo::all();
+        dd($teach);
     }
 
     /**

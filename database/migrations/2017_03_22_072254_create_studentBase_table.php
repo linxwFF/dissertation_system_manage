@@ -13,9 +13,17 @@ class CreateStudentBaseTable extends Migration
      */
     public function up()
     {
+        //学生基础信息表
         Schema::create('student_base_info', function (Blueprint $table) {
             $table->increments('id');
+
+            //登录必须字段
             $table->string('name',30)->comment('姓名');
+            $table->string('email')->unique()->comment('邮箱');
+            $table->string('password')->comment('密码');
+            $table->rememberToken();
+            $table->timestamps();
+
             $table->string('name_spell',60)->comment('姓名拼音');
             $table->string('student_QQ',20)->comment('学生QQ');
             $table->string('student_phone',20)->comment('学生电话');
@@ -36,7 +44,6 @@ class CreateStudentBaseTable extends Migration
             $table->string('blood_type',2)->comment('血型码');
             $table->string('photo')->comment('照片');
             $table->string('identity_valid',17)->comment('身份证件有效期');
-            $table->timestamps();
         });
     }
 

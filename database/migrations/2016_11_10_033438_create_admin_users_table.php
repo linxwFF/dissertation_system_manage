@@ -15,11 +15,8 @@ class CreateAdminUsersTable extends Migration
     {
         Schema::create('admin_users', function (Blueprint $table) {
             $table->increments('id')->comment('管理员用户表ID');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->integer('user_id')->comment('用户模型ID');
+            $table->string('user_role_type')->comment('用户对应的模型');
         });
     }
 
