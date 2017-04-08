@@ -13,9 +13,6 @@ class TeachBaseInfoSeeder extends Seeder
     {
         $teach = new \App\Models\TeachBaseInfo();
         $teach->id = 1;
-        $teach->name = 'root';
-        $teach->email = 'root@teach.com';
-        $teach->password = bcrypt('teach');
 
         $teach->unit_number = "1";
         $teach->name_spell = "1";

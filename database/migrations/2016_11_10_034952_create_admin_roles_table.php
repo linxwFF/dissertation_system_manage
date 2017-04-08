@@ -17,6 +17,7 @@ class CreateAdminRolesTable extends Migration
             $table->increments('id');
             $table->string('name')->comment('角色名称');
             $table->string('description')->comment('备注')->nullable();   //非为空
+            $table->string('model_type')->comment('对应的模型')->nullable();   //非为空
             $table->timestamps();
         });
     }

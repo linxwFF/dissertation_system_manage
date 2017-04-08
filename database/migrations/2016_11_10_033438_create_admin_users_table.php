@@ -15,8 +15,16 @@ class CreateAdminUsersTable extends Migration
     {
         Schema::create('admin_users', function (Blueprint $table) {
             $table->increments('id')->comment('管理员用户表ID');
-            $table->integer('user_id')->comment('用户模型ID');
-            $table->string('user_role_type')->comment('用户对应的模型');
+            $table->integer('user_id')->comment('用户模型ID');  //对应的用户表外键ID
+            $table->string('userable_type')->comment('用户对应的模型');
+
+            $table->string('role_id')->comment('角色表外键');   //角色表外键
+
+            $table->string('name',30)->comment('姓名');
+            $table->string('email')->unique()->comment('邮箱');
+            $table->string('password')->comment('密码');
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 

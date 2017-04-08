@@ -17,12 +17,7 @@ class CreateTeachBaseInfoTable extends Migration
         Schema::create('teach_base_info', function (Blueprint $table) {
             $table->increments('id');
 
-            //登录必须字段
-            $table->string('name',30)->comment('姓名');
-            $table->string('email')->unique()->comment('邮箱');
-            $table->string('password')->comment('密码');
-            $table->rememberToken();
-            $table->timestamps();
+            //登录必须字段，迁移到admin_users表中
 
             $table->string('unit_number',8)->comment('单位号');
             $table->string('name_spell',60)->comment('姓名拼音');

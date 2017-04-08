@@ -21,14 +21,21 @@ class DatabaseSeeder extends Seeder
             $this->command->info('init AdminInitSeeder success!');
 
             //用户数据填充
+            $this->call(AdminUserSeeder::class);
+            $this->command->info('AdminUserSeeder seed success!');
+
             $this->call(StudentBaseInfoSeeder::class);
             $this->command->info('StudentBaseInfo seed success!');
             $this->call(TeachBaseInfoSeeder::class);
             $this->command->info('TeachBaseInfoSeeder seed success!');
 
+            //角色数据填充，学生狗和教职工
+            $this->call(AdminRoleSeeder::class);
+            $this->command->info('AdminRoleSeeder seed success!');
 
         }else{
             $this->command->info(" now don't seed data");
         }
+
     }
 }

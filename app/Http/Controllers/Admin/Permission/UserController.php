@@ -34,33 +34,92 @@ class UserController extends Controller
             $start = $request->get('start');
             $length = $request->get('length');
             $order = $request->get('order');
-            $columns = $request->get('columns');
+            $columns = $request->get('columns');    //指定排序字段
             $search = $request->get('search');
+            $role_tag = $request->get('role_tag');  //指定角色
+
+            //全部未过滤
             $data['recordsTotal'] = AdminUser::count();
-            if (strlen($search['value']) > 0) {
-                $data['recordsFiltered'] = AdminUser::where(function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')
-                        ->orWhere('email', 'like', '%' . $search['value'] . '%');
-                })->count();
-                $data['data'] = AdminUser::where(function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')
-                        ->orWhere('email', 'like', '%' . $search['value'] . '%');
-                })
-                    ->skip($start)->take($length)
-                    ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                    ->get();
-            } else {
-                $data['recordsFiltered'] = AdminUser::count();
-                $data['data'] = AdminUser::
-                skip($start)->take($length)
-                    ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                    ->get();
+
+            if($role_tag == 'all')
+            {
+                //模糊查询
+                if (strlen($search['value']) > 0) {
+                    //模糊查询总计筛选条数
+                    $data['recordsFiltered'] = AdminUser::where(function ($query) use ($search) {
+                        $query->where('name', 'LIKE', '%' . $search['value'] . '%')
+                            ->orWhere('email', 'like', '%' . $search['value'] . '%');
+                    })->count();
+
+                    //分页记录
+                    $data['data'] = AdminUser::where(function ($query) use ($search) {
+                        $query->where('name', 'LIKE', '%' . $search['value'] . '%')
+                            ->orWhere('email', 'like', '%' . $search['value'] . '%');
+                    })
+                        ->skip($start)->take($length)
+                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
+                        ->get();
+
+                } else {
+                    $data['recordsFiltered'] = AdminUser::count();
+
+                    $array_ids = array_pluck(AdminUser::all(), 'id');
+                    $data['data'] = AdminUser::whereIn('id', $array_ids)->get()->toArray();
+                    //多对多的用户其他属性
+                    foreach ($array_ids as $key => $value) {
+                        $data['data'][$key] = array_merge( $data['data'][$key],
+                        current(AdminUser::find($value)
+                        ->admin_users()
+                        ->skip($start)->take($length)
+                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
+                        ->get()->toArray()));
+                    }
+
+                }
+            }else{
+                $admin_role = Role::where('id',$role_tag)->get(['model_type','name'])->first()->toArray();   //角色
+                $admin_role_model = $admin_role['model_type'];   //角色模型
+                //模糊查询
+                if (strlen($search['value']) > 0) {
+                    //记录筛选
+                    $data['recordsFiltered'] = AdminUser::where(function ($query) use ($search) {
+                        $query->where('userable_type',$admin_role_model)
+                            ->where('name', 'LIKE', '%' . $search['value'] . '%')
+                            ->orWhere('email', 'like', '%' . $search['value'] . '%');
+                    })->count();
+
+                    //分页记录
+                    $data['data'] = AdminUser::where(function ($query) use ($search) {
+                        $query->where('userable_type',$admin_role_model)
+                            ->where('name', 'LIKE', '%' . $search['value'] . '%')
+                            ->orWhere('email', 'like', '%' . $search['value'] . '%');
+                    })
+                        ->skip($start)->take($length)
+                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
+                        ->get();
+                } else {
+                    $data['recordsFiltered'] = AdminUser::where('userable_type',$admin_role_model)->count();
+
+                    $array_ids = array_pluck(AdminUser::where('userable_type',$admin_role_model)->get(), 'id');
+                    $data['data'] = AdminUser::whereIn('id', $array_ids)->where('userable_type',$admin_role_model)->get()->toArray();
+                    //多对多的用户其他属性
+                    foreach ($array_ids as $key => $value) {
+                        $data['data'][$key] = array_merge( $data['data'][$key],
+                        current(AdminUser::find($value)
+                        ->admin_users()
+                        ->skip($start)->take($length)
+                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
+                        ->get()->toArray()));
+                    }
+                }
             }
-            dd($data);
+
             return response()->json($data);
         }
+        //前端选择角色列表
+        $datas['roles'] =  Role::all()->toArray();
 
-        return view('admin.permission.user.index');
+        return view('admin.permission.user.index',$datas);
     }
 
     /**
@@ -110,13 +169,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $teach = AdminUser::join('teach_base_info as teach','teach.id','=','admin_users.user_id')
-                        ->where('user_role_type','App\Models\TeachBaseInfo')->get()->toArray();
+        //返回全部用户
+        $array_ids = array_pluck(AdminUser::all(), 'id');
+        foreach ($array_ids as $value) {
+            $data[$value] = current(AdminUser::find($value)->admin_users()->where('email', 'LIKE', '%root@%')->get()->toArray());
+        }
 
-        $student = AdminUser::join('student_base_info as student','student.id','=','admin_users.user_id')
-                        ->where('user_role_type','App\Models\StudentBaseInfo')->get()->toArray();
-        // $student = StudentBaseInfo::all();
-        dd($teach);
+        dd($data);
     }
 
     /**

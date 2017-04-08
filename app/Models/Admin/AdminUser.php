@@ -66,4 +66,11 @@ class AdminUser extends Authenticatable
         }
         return true;
     }
+
+    //目前只有学生和老师两个模型，多态关联
+    public function admin_users()
+    {
+        return $this->morphTo('admin_users','userable_type','user_id');
+    }
+
 }
