@@ -52,64 +52,78 @@ class UserController extends Controller
                     })->count();
 
                     //分页记录
-                    $data['data'] = AdminUser::where(function ($query) use ($search) {
-                        $query->where('name', 'LIKE', '%' . $search['value'] . '%')
-                            ->orWhere('email', 'like', '%' . $search['value'] . '%');
-                    })
-                        ->skip($start)->take($length)
-                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                        ->get();
+                    $array_ids = array_pluck(AdminUser::where('name', 'LIKE', '%' . $search['value'] . '%')
+                                                ->orWhere('email', 'like', '%' . $search['value'] . '%')
+                                                ->skip($start)->take($length)->get(), 'id');
+
+                    $data['data'] = AdminUser::whereIn('id', $array_ids)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get()->toArray();
+                    //多对多的用户其他属性
+                    foreach ($array_ids as $key => $value) {
+                        //额外属性
+                        $data_extra_property = current(AdminUser::find($value)->admin_users()->get()->toArray());
+                        unset($data_extra_property['id']);  //去除ID
+                        $data['data'][$key] = array_merge($data['data'][$key], $data_extra_property);
+                        //角色
+                        $data['data'][$key]['role_name'] = array_flatten(Role::where('id',$data['data'][$key]['role_id'])->get(['name'])->toArray());
+                    }
 
                 } else {
                     $data['recordsFiltered'] = AdminUser::count();
 
-                    $array_ids = array_pluck(AdminUser::all(), 'id');
-                    $data['data'] = AdminUser::whereIn('id', $array_ids)->get()->toArray();
+                    $array_ids = array_pluck(AdminUser::skip($start)->take($length)->get(), 'id');
+
+                    $data['data'] = AdminUser::whereIn('id', $array_ids)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get()->toArray();
                     //多对多的用户其他属性
                     foreach ($array_ids as $key => $value) {
-                        $data['data'][$key] = array_merge( $data['data'][$key],
-                        current(AdminUser::find($value)
-                        ->admin_users()
-                        ->skip($start)->take($length)
-                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                        ->get()->toArray()));
+                        //额外属性
+                        $data_extra_property = current(AdminUser::find($value)->admin_users()->get()->toArray());
+                        unset($data_extra_property['id']);  //去除ID
+                        $data['data'][$key] = array_merge($data['data'][$key], $data_extra_property);
+                        //角色
+                        $data['data'][$key]['role_name'] = array_flatten(Role::where('id',$data['data'][$key]['role_id'])->get(['name'])->toArray());
                     }
-
                 }
             }else{
-                $admin_role = Role::where('id',$role_tag)->get(['model_type','name'])->first()->toArray();   //角色
-                $admin_role_model = $admin_role['model_type'];   //角色模型
                 //模糊查询
                 if (strlen($search['value']) > 0) {
                     //记录筛选
-                    $data['recordsFiltered'] = AdminUser::where(function ($query) use ($search) {
-                        $query->where('userable_type',$admin_role_model)
+                    $data['recordsFiltered'] = AdminUser::where(function ($query) use ($search, $role_tag) {
+                        $query->where('role_id',$role_tag)
                             ->where('name', 'LIKE', '%' . $search['value'] . '%')
                             ->orWhere('email', 'like', '%' . $search['value'] . '%');
                     })->count();
 
                     //分页记录
-                    $data['data'] = AdminUser::where(function ($query) use ($search) {
-                        $query->where('userable_type',$admin_role_model)
-                            ->where('name', 'LIKE', '%' . $search['value'] . '%')
-                            ->orWhere('email', 'like', '%' . $search['value'] . '%');
-                    })
-                        ->skip($start)->take($length)
-                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                        ->get();
-                } else {
-                    $data['recordsFiltered'] = AdminUser::where('userable_type',$admin_role_model)->count();
+                    $array_ids = array_pluck(AdminUser::where('role_id',$role_tag)
+                        ->where('name', 'LIKE', '%' . $search['value'] . '%')
+                        ->orWhere('email', 'like', '%' . $search['value'] . '%')
+                        ->skip($start)->take($length)->get(), 'id');
 
-                    $array_ids = array_pluck(AdminUser::where('userable_type',$admin_role_model)->get(), 'id');
-                    $data['data'] = AdminUser::whereIn('id', $array_ids)->where('userable_type',$admin_role_model)->get()->toArray();
+                    $data['data'] = AdminUser::whereIn('id', $array_ids)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get()->toArray();
                     //多对多的用户其他属性
                     foreach ($array_ids as $key => $value) {
-                        $data['data'][$key] = array_merge( $data['data'][$key],
-                        current(AdminUser::find($value)
-                        ->admin_users()
-                        ->skip($start)->take($length)
-                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                        ->get()->toArray()));
+                        //额外属性
+                        $data_extra_property = current(AdminUser::find($value)->admin_users()->get()->toArray());
+                        unset($data_extra_property['id']);  //去除ID
+                        $data['data'][$key] = array_merge($data['data'][$key], $data_extra_property);
+                        //角色
+                        $data['data'][$key]['role_name'] = array_flatten(Role::where('id',$data['data'][$key]['role_id'])->get(['name'])->toArray());
+                    }
+
+                } else {
+                    $data['recordsFiltered'] = AdminUser::where('role_id',$role_tag)->count();
+
+                    $array_ids = array_pluck(AdminUser::where('role_id',$role_tag)->skip($start)->take($length)->get(), 'id');
+
+                    $data['data'] = AdminUser::whereIn('id', $array_ids)->where('role_id',$role_tag)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get()->toArray();
+                    //多对多的用户其他属性
+                    foreach ($array_ids as $key => $value) {
+                        //额外属性
+                        $data_extra_property = current(AdminUser::find($value)->admin_users()->get()->toArray());
+                        unset($data_extra_property['id']);  //去除ID
+                        $data['data'][$key] = array_merge($data['data'][$key], $data_extra_property);
+                        //角色
+                        $data['data'][$key]['role_name'] = array_flatten(Role::where('id',$data['data'][$key]['role_id'])->get(['name'])->toArray());
                     }
                 }
             }
