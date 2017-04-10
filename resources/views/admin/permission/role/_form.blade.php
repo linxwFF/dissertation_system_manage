@@ -4,6 +4,7 @@
         <input type="text" class="form-control" name="name" id="tag" value="{{ $name }}" autofocus>
     </div>
 </div>
+
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">角色概述</label>
     <div class="col-md-5">
@@ -12,8 +13,12 @@
 </div>
 
 <div class="form-group">
-    <label for="tag" class="col-md-3 control-label">权限列表</label>
+    <label for="tag" class="col-md-3 control-label">角色对应的模型</label>
+    <div class="col-md-5">
+        <input type="text" class="form-control" name="model_type" id="model_type" value="{{ $model_type }}" autofocus>
+    </div>
 </div>
+
 <div class="form-group">
     <div class="form-group">
         @if($permissionAll)
@@ -54,4 +59,3 @@
         });
     });
 </script>
-

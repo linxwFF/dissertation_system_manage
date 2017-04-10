@@ -47,7 +47,7 @@ $(function () {
                             "sSortDescending": ": 以降序排列此列"
                         }
                     },
-                    order: [[1, "asc"]],
+                    order: [[0, "asc"]],
                     serverSide: true,
                     ajax: {
                         url: '/admin/role/index',
@@ -57,9 +57,10 @@ $(function () {
                         }
                     },
                     "columns": [
-                        {"data": "id"},
+                        {"orderable":false,"data": "id"},
                         {"data": "name"},
                         {"data": "description"},
+                        {"data": "model_type"},
                         {"data": "created_at"},
                         {"data": "updated_at"},
                         {"data": "action"}
@@ -102,13 +103,6 @@ $(function () {
                     //载入动画
                 	$("#loading").fadeOut(500);
                 });
-
-                //点击排序时候时回调函数
-                table.on('order.dt search.dt', function () {
-                    table.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
-                        cell.innerHTML = i + 1;
-                    });
-                }).draw();
 
                 $("table").delegate('.delBtn', 'click', function () {
                     var id = $(this).attr('attr');
@@ -155,6 +149,7 @@ $(function () {
                                     <th data-sortable="false">ID</th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="demo-dt-basic" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending"  aria-sort="ascending">角色名称</th>
                                     <th class="sorting" tabindex="0" aria-controls="demo-dt-basic" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" >角色描述</th>
+                                    <th class="sorting" tabindex="0" aria-controls="demo-dt-basic" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" >角色模型</th>
                                     <th class="min-tablet sorting" tabindex="0" aria-controls="demo-dt-basic" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" >角色创建日期</th>
                                     <th class="min-tablet sorting" tabindex="0" aria-controls="demo-dt-basic" rowspan="1" colspan="1" aria-label="Extn.: activate to sort column ascending" >角色修改日期</th>
                                     <th data-sortable="false">操作</th>

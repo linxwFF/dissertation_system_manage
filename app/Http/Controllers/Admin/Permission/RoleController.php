@@ -16,6 +16,7 @@ class RoleController extends Controller
     protected $fields = [
         'name' => '',
         'description' => '',
+        'model_type' => '',
         'permissions' => [],
     ];
 
@@ -64,6 +65,8 @@ class RoleController extends Controller
         foreach ($arr as $v) {
             $data['permissionAll'][$v['cid']][] = $v;
         }
+        $data['model_type'] = '';
+
         return view('admin.permission.role.create', $data);
     }
 
@@ -88,6 +91,7 @@ class RoleController extends Controller
     {
         $role = Role::find((int)$id);
         if (!$role) return redirect('/admin/role')->withErrors("找不到该角色!");
+
         $permissions = [];
         if ($role->permissions) {
             foreach ($role->permissions as $v) {
@@ -103,6 +107,9 @@ class RoleController extends Controller
             $data['permissionAll'][$v['cid']][] = $v;
         }
         $data['id'] = (int)$id;
+
+        $data['model_type'] = $role->model_type;    //角色模型
+
         return view('admin.permission.role.edit', $data);
     }
 
@@ -124,6 +131,12 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
+        //初始化的两个教师和学生角色不能删除
+        if($id == 1 || $id == 2)
+        {
+            return redirect()->back()->withErrors("权限不够，删除失败");
+        }
+
         $role = Role::find((int)$id);
         foreach ($role->users as $v){
             $role->users()->detach($v);
