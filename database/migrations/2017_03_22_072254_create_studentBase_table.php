@@ -31,12 +31,12 @@ class CreateStudentBaseTable extends Migration
             $table->string('nationility_code',3)->comment('国籍/地区码');
             $table->string('identity_type',1)->comment('身份证件类型码');
             $table->string('identity_number',20)->comment('身份证件号');
-            $table->string('marriage_states_code',2)->comment('婚姻状况码');
+            $table->string('marriage_status_code',2)->comment('婚姻状况码');
             $table->string('conuntrymen_code',2)->comment('港澳台侨外码');
             $table->string('politics_status',1)->comment('政治面貌');
             $table->string('health_status',1)->comment('健康状态码');
             $table->string('religion',1)->comment('信仰宗教码');
-            $table->string('blood_type',2)->comment('血型码');
+            $table->string('blood_type_code',2)->comment('血型码');
             $table->string('photo')->comment('照片');
             $table->string('identity_valid',17)->comment('身份证件有效期');
         });

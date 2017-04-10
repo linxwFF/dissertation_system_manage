@@ -33,7 +33,7 @@ class CreateTeachBaseInfoTable extends Migration
             $table->string('identity_number',20)->comment('身份证件号');
             $table->string('identity_valid',17)->comment('身份证件有效期');
             $table->string('marriage_status_code',2)->comment('婚姻状况码');
-            $table->string('countrymen_code',2)->comment('港澳台桥外码');
+            $table->string('conuntrymen_code',2)->comment('港澳台桥外码');
             $table->string('health_status',1)->comment('健康状态码');
             $table->string('religion',1)->comment('信仰宗教码');
             $table->string('blood_type_code',2)->comment('血型码');

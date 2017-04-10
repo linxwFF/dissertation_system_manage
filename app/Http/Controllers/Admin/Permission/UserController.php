@@ -59,10 +59,6 @@ class UserController extends Controller
                     $data['data'] = AdminUser::whereIn('id', $array_ids)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get()->toArray();
                     //多对多的用户其他属性
                     foreach ($array_ids as $key => $value) {
-                        //额外属性
-                        $data_extra_property = current(AdminUser::find($value)->admin_users()->get()->toArray());
-                        unset($data_extra_property['id']);  //去除ID
-                        $data['data'][$key] = array_merge($data['data'][$key], $data_extra_property);
                         //角色
                         $data['data'][$key]['role_name'] = array_flatten(Role::where('id',$data['data'][$key]['role_id'])->get(['name'])->toArray());
                     }
@@ -71,14 +67,9 @@ class UserController extends Controller
                     $data['recordsFiltered'] = AdminUser::count();
 
                     $array_ids = array_pluck(AdminUser::skip($start)->take($length)->get(), 'id');
-
                     $data['data'] = AdminUser::whereIn('id', $array_ids)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get()->toArray();
                     //多对多的用户其他属性
                     foreach ($array_ids as $key => $value) {
-                        //额外属性
-                        $data_extra_property = current(AdminUser::find($value)->admin_users()->get()->toArray());
-                        unset($data_extra_property['id']);  //去除ID
-                        $data['data'][$key] = array_merge($data['data'][$key], $data_extra_property);
                         //角色
                         $data['data'][$key]['role_name'] = array_flatten(Role::where('id',$data['data'][$key]['role_id'])->get(['name'])->toArray());
                     }
@@ -98,14 +89,9 @@ class UserController extends Controller
                         ->where('name', 'LIKE', '%' . $search['value'] . '%')
                         ->orWhere('email', 'like', '%' . $search['value'] . '%')
                         ->skip($start)->take($length)->get(), 'id');
-
                     $data['data'] = AdminUser::whereIn('id', $array_ids)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get()->toArray();
                     //多对多的用户其他属性
                     foreach ($array_ids as $key => $value) {
-                        //额外属性
-                        $data_extra_property = current(AdminUser::find($value)->admin_users()->get()->toArray());
-                        unset($data_extra_property['id']);  //去除ID
-                        $data['data'][$key] = array_merge($data['data'][$key], $data_extra_property);
                         //角色
                         $data['data'][$key]['role_name'] = array_flatten(Role::where('id',$data['data'][$key]['role_id'])->get(['name'])->toArray());
                     }
@@ -114,14 +100,9 @@ class UserController extends Controller
                     $data['recordsFiltered'] = AdminUser::where('role_id',$role_tag)->count();
 
                     $array_ids = array_pluck(AdminUser::where('role_id',$role_tag)->skip($start)->take($length)->get(), 'id');
-
                     $data['data'] = AdminUser::whereIn('id', $array_ids)->where('role_id',$role_tag)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get()->toArray();
                     //多对多的用户其他属性
                     foreach ($array_ids as $key => $value) {
-                        //额外属性
-                        $data_extra_property = current(AdminUser::find($value)->admin_users()->get()->toArray());
-                        unset($data_extra_property['id']);  //去除ID
-                        $data['data'][$key] = array_merge($data['data'][$key], $data_extra_property);
                         //角色
                         $data['data'][$key]['role_name'] = array_flatten(Role::where('id',$data['data'][$key]['role_id'])->get(['name'])->toArray());
                     }
@@ -134,6 +115,13 @@ class UserController extends Controller
         $datas['roles'] =  Role::all()->toArray();
 
         return view('admin.permission.user.index',$datas);
+    }
+
+    public function get_extra_property($id)
+    {
+        $data_extra_property = current(AdminUser::find($id)->admin_users()->get()->toArray());
+        unset($data_extra_property['id']);  //去除ID
+        return $data_extra_property;
     }
 
     /**
@@ -183,13 +171,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //返回全部用户
-        $array_ids = array_pluck(AdminUser::all(), 'id');
-        foreach ($array_ids as $value) {
-            $data[$value] = current(AdminUser::find($value)->admin_users()->where('email', 'LIKE', '%root@%')->get()->toArray());
-        }
 
-        dd($data);
     }
 
     /**

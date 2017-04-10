@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
     //权限管理/用户管理
     Route::get('/user/index', 'Admin\Permission\UserController@index');
     Route::post('/user/index', 'Admin\Permission\UserController@index');  //dataTable，Ajax请求数据
+    Route::get('/user/extra_property/{id}', 'Admin\Permission\UserController@get_extra_property');//请求用户扩展数据
     Route::resource('user', 'Admin\Permission\UserController');
 
 });
