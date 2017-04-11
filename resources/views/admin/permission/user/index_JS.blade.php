@@ -108,7 +108,151 @@ $(function () {
                 /* Formatting function for row details - modify as you need */
                 function format ( d ) {
                     // `d` is the original data object for the row
-                    return '<table id="extra_property" class="table table-striped table-bordered dataTable no-footer dtr-inline"  width="100%"  cellspacing="0" border="0">'+'</table>';
+                    return '<table id="extra_property'+d.id+'" class="table table-striped table-bordered dataTable no-footer dtr-inline"  width="100%"  cellspacing="0" border="0">'+'</table>';
+                }
+
+                //ajax添加扩展属性的回调函数
+                function ajaxCallback(data,role_id,id)
+                {
+                    var strHtml = "";
+                    if(role_id == 1){
+                    strHtml += '<tr>'+
+                            '<td width="10%">单位号:</td>'+
+                            '<td width="20%">'+data.unit_number+'</td>'+
+                            '<td width="10%">姓名拼音:</td>'+
+                            '<td width="20%">'+data.name_spell+'</td>'+
+                            '<td width="10%">教研室ID:</td>'+
+                            '<td width="20%">'+data.teach_reasearch_room_ID+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td width="10%">曾用名:</td>'+
+                            '<td width="20%">'+data.name_before+'</td>'+
+                            '<td width="10%">性别码:</td>'+
+                            '<td width="20%">'+data.sex_code+'</td>'+
+                            '<td width="10%">出生日期:</td>'+
+                            '<td width="20%">'+data.birthday+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td width="10%">出身地码:</td>'+
+                            '<td width="20%">'+data.birthday_addr_code+'</td>'+
+                            '<td width="10%">籍贯:</td>'+
+                            '<td width="20%">'+data.native_place+'</td>'+
+                            '<td width="10%">民族码:</td>'+
+                            '<td width="20%">'+data.nation_code+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td width="10%">国籍/地区码:</td>'+
+                            '<td width="20%">'+data.nationility_code+'</td>'+
+                            '<td width="10%">身份证件类型码:</td>'+
+                            '<td width="20%">'+data.identity_type+'</td>'+
+                            '<td width="10%">身份证件号:</td>'+
+                            '<td width="20%">'+data.identity_number+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td width="10%">身份证件有效期:</td>'+
+                            '<td width="20%">'+data.identity_valid+'</td>'+
+                            '<td width="10%">婚姻状况码:</td>'+
+                            '<td width="20%">'+data.marriage_status_code+'</td>'+
+                            '<td width="10%">港澳台桥外码:</td>'+
+                            '<td width="20%">'+data.conuntrymen_code+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td width="10%">健康状态码:</td>'+
+                            '<td width="20%">'+data.health_status+'</td>'+
+                            '<td width="10%">信仰宗教码:</td>'+
+                            '<td width="20%">'+data.religion+'</td>'+
+                            '<td width="10%">血型码:</td>'+
+                            '<td width="20%">'+data.blood_type_code+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td width="10%">最高学历码:</td>'+
+                            '<td width="20%">'+data.educationest_code+'</td>'+
+                            '<td width="10%">文化程度码:</td>'+
+                            '<td width="20%">'+data.culture_standard_code+'</td>'+
+                            '<td width="10%">参加工作年月:</td>'+
+                            '<td width="20%">'+data.date_first_work+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td width="10%">来校日期:</td>'+
+                            '<td width="20%">'+data.data_come_school+'</td>'+
+                            '<td width="10%">起薪日期:</td>'+
+                            '<td width="20%">'+data.date_start_salary+'</td>'+
+                            '<td width="10%">从教年月:</td>'+
+                            '<td width="20%">'+data.date_start_teach+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td width="10%">编制类型码:</td>'+
+                            '<td width="20%">'+data.authorized_strength_code+'</td>'+
+                            '<td width="10%">教职工类别码:</td>'+
+                            '<td width="20%">'+data.teach_staff_type_code+'</td>'+
+                            '<td width="10%">任课状况码:</td>'+
+                            '<td width="20%">'+data.teach_status_code+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td width="10%">档案编号:</td>'+
+                            '<td width="20%">'+data.record_number+'</td>'+
+                            '<td width="10%">档案文本:</td>'+
+                            '<td width="20%">'+data.record_text+'</td>'+
+                            '<td width="10%">当前状态码:</td>'+
+                            '<td width="20%">'+data.current_state_code+'</td>'+
+                        '</tr>';
+                    }else if(role_id == 2){
+                        strHtml += '<tr>'+
+                                '<td width="10%">姓名拼音:</td>'+
+                                '<td width="20%">'+data.name_spell+'</td>'+
+                                '<td width="10%">学生QQ:</td>'+
+                                '<td width="20%">'+data.student_QQ+'</td>'+
+                                '<td width="10%">学生电话:</td>'+
+                                '<td width="20%">'+data.student_phone+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td width="10%">曾用名:</td>'+
+                                '<td width="20%">'+data.name_before+'</td>'+
+                                '<td width="10%">性别码:</td>'+
+                                '<td width="20%">'+data.sex_code+'</td>'+
+                                '<td width="10%">出生日期:</td>'+
+                                '<td width="20%">'+data.birthday+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td width="10%">出生地码:</td>'+
+                                '<td width="20%">'+data.birth_addr_code+'</td>'+
+                                '<td width="10%">籍贯:</td>'+
+                                '<td width="20%">'+data.native_place+'</td>'+
+                                '<td width="10%">民族码:</td>'+
+                                '<td width="20%">'+data.nation_code+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td width="10%">国籍/地区码:</td>'+
+                                '<td width="20%">'+data.nationility_code+'</td>'+
+                                '<td width="10%">身份证件类型码:</td>'+
+                                '<td width="20%">'+data.identity_type+'</td>'+
+                                '<td width="10%">身份证件号:</td>'+
+                                '<td width="20%">'+data.identity_number+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td width="10%">身份证件有效期:</td>'+
+                                '<td width="20%">'+data.identity_valid+'</td>'+
+                                '<td width="10%">婚姻状况码:</td>'+
+                                '<td width="20%">'+data.marriage_status_code+'</td>'+
+                                '<td width="10%">港澳台桥外码:</td>'+
+                                '<td width="20%">'+data.conuntrymen_code+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td width="10%">健康状态码:</td>'+
+                                '<td width="20%">'+data.health_status+'</td>'+
+                                '<td width="10%">信仰宗教码:</td>'+
+                                '<td width="20%">'+data.religion+'</td>'+
+                                '<td width="10%">血型码:</td>'+
+                                '<td width="20%">'+data.blood_type_code+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td width="10%">政治面貌:</td>'+
+                                '<td width="20%">'+data.politics_status+'</td>'+
+                                '<td width="10%">照片:</td>'+
+                                '<td width="20%">'+data.photo+'</td>'+
+                            '</tr>';
+                    }
+                     $('#extra_property'+id).append(strHtml);
                 }
 
                 // Add event listener for opening and closing details
@@ -117,7 +261,6 @@ $(function () {
                     var row = table.row( tr );
                     var id = table.row( $(this).parents('tr') ).data().id;
                     var role_id = table.row( $(this).parents('tr') ).data().role_id;
-                    var strHtml = "";
 
                     $.ajax({
                         type:'get',
@@ -126,148 +269,9 @@ $(function () {
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                         },
                         success:function(data){
-
-                            if(role_id == 1){
-                            strHtml += '<tr>'+
-                                    '<td width="10%">单位号:</td>'+
-                                    '<td width="20%">'+data.unit_number+'</td>'+
-                                    '<td width="10%">姓名拼音:</td>'+
-                                    '<td width="20%">'+data.name_spell+'</td>'+
-                                    '<td width="10%">教研室ID:</td>'+
-                                    '<td width="20%">'+data.teach_reasearch_room_ID+'</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td width="10%">曾用名:</td>'+
-                                    '<td width="20%">'+data.name_before+'</td>'+
-                                    '<td width="10%">性别码:</td>'+
-                                    '<td width="20%">'+data.sex_code+'</td>'+
-                                    '<td width="10%">出生日期:</td>'+
-                                    '<td width="20%">'+data.birthday+'</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td width="10%">出身地码:</td>'+
-                                    '<td width="20%">'+data.birthday_addr_code+'</td>'+
-                                    '<td width="10%">籍贯:</td>'+
-                                    '<td width="20%">'+data.native_place+'</td>'+
-                                    '<td width="10%">民族码:</td>'+
-                                    '<td width="20%">'+data.nation_code+'</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td width="10%">国籍/地区码:</td>'+
-                                    '<td width="20%">'+data.nationility_code+'</td>'+
-                                    '<td width="10%">身份证件类型码:</td>'+
-                                    '<td width="20%">'+data.identity_type+'</td>'+
-                                    '<td width="10%">身份证件号:</td>'+
-                                    '<td width="20%">'+data.identity_number+'</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td width="10%">身份证件有效期:</td>'+
-                                    '<td width="20%">'+data.identity_valid+'</td>'+
-                                    '<td width="10%">婚姻状况码:</td>'+
-                                    '<td width="20%">'+data.marriage_status_code+'</td>'+
-                                    '<td width="10%">港澳台桥外码:</td>'+
-                                    '<td width="20%">'+data.conuntrymen_code+'</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td width="10%">健康状态码:</td>'+
-                                    '<td width="20%">'+data.health_status+'</td>'+
-                                    '<td width="10%">信仰宗教码:</td>'+
-                                    '<td width="20%">'+data.religion+'</td>'+
-                                    '<td width="10%">血型码:</td>'+
-                                    '<td width="20%">'+data.blood_type_code+'</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td width="10%">最高学历码:</td>'+
-                                    '<td width="20%">'+data.educationest_code+'</td>'+
-                                    '<td width="10%">文化程度码:</td>'+
-                                    '<td width="20%">'+data.culture_standard_code+'</td>'+
-                                    '<td width="10%">参加工作年月:</td>'+
-                                    '<td width="20%">'+data.date_first_work+'</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td width="10%">来校日期:</td>'+
-                                    '<td width="20%">'+data.data_come_school+'</td>'+
-                                    '<td width="10%">起薪日期:</td>'+
-                                    '<td width="20%">'+data.date_start_salary+'</td>'+
-                                    '<td width="10%">从教年月:</td>'+
-                                    '<td width="20%">'+data.date_start_teach+'</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td width="10%">编制类型码:</td>'+
-                                    '<td width="20%">'+data.authorized_strength_code+'</td>'+
-                                    '<td width="10%">教职工类别码:</td>'+
-                                    '<td width="20%">'+data.teach_staff_type_code+'</td>'+
-                                    '<td width="10%">任课状况码:</td>'+
-                                    '<td width="20%">'+data.teach_status_code+'</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td width="10%">档案编号:</td>'+
-                                    '<td width="20%">'+data.record_number+'</td>'+
-                                    '<td width="10%">档案文本:</td>'+
-                                    '<td width="20%">'+data.record_text+'</td>'+
-                                    '<td width="10%">当前状态码:</td>'+
-                                    '<td width="20%">'+data.current_state_code+'</td>'+
-                                '</tr>';
-                            }else if(roid_id = 2){
-                                strHtml += '<tr>'+
-                                        '<td width="10%">姓名拼音:</td>'+
-                                        '<td width="20%">'+data.name_spell+'</td>'+
-                                        '<td width="10%">学生QQ:</td>'+
-                                        '<td width="20%">'+data.student_QQ+'</td>'+
-                                        '<td width="10%">学生电话:</td>'+
-                                        '<td width="20%">'+data.student_phone+'</td>'+
-                                    '</tr>'+
-                                    '<tr>'+
-                                        '<td width="10%">曾用名:</td>'+
-                                        '<td width="20%">'+data.name_before+'</td>'+
-                                        '<td width="10%">性别码:</td>'+
-                                        '<td width="20%">'+data.sex_code+'</td>'+
-                                        '<td width="10%">出生日期:</td>'+
-                                        '<td width="20%">'+data.birthday+'</td>'+
-                                    '</tr>'+
-                                    '<tr>'+
-                                        '<td width="10%">出生地码:</td>'+
-                                        '<td width="20%">'+data.birth_addr_code+'</td>'+
-                                        '<td width="10%">籍贯:</td>'+
-                                        '<td width="20%">'+data.native_place+'</td>'+
-                                        '<td width="10%">民族码:</td>'+
-                                        '<td width="20%">'+data.nation_code+'</td>'+
-                                    '</tr>'+
-                                    '<tr>'+
-                                        '<td width="10%">国籍/地区码:</td>'+
-                                        '<td width="20%">'+data.nationility_code+'</td>'+
-                                        '<td width="10%">身份证件类型码:</td>'+
-                                        '<td width="20%">'+data.identity_type+'</td>'+
-                                        '<td width="10%">身份证件号:</td>'+
-                                        '<td width="20%">'+data.identity_number+'</td>'+
-                                    '</tr>'+
-                                    '<tr>'+
-                                        '<td width="10%">身份证件有效期:</td>'+
-                                        '<td width="20%">'+data.identity_valid+'</td>'+
-                                        '<td width="10%">婚姻状况码:</td>'+
-                                        '<td width="20%">'+data.marriage_status_code+'</td>'+
-                                        '<td width="10%">港澳台桥外码:</td>'+
-                                        '<td width="20%">'+data.conuntrymen_code+'</td>'+
-                                    '</tr>'+
-                                    '<tr>'+
-                                        '<td width="10%">健康状态码:</td>'+
-                                        '<td width="20%">'+data.health_status+'</td>'+
-                                        '<td width="10%">信仰宗教码:</td>'+
-                                        '<td width="20%">'+data.religion+'</td>'+
-                                        '<td width="10%">血型码:</td>'+
-                                        '<td width="20%">'+data.blood_type_code+'</td>'+
-                                    '</tr>'+
-                                    '<tr>'+
-                                        '<td width="10%">政治面貌:</td>'+
-                                        '<td width="20%">'+data.politics_status+'</td>'+
-                                        '<td width="10%">照片:</td>'+
-                                        '<td width="20%">'+data.photo+'</td>'+
-                                    '</tr>';
-                            }
-                             $('#extra_property').append(strHtml);
+                            ajaxCallback(data,role_id,id);  //回调函数
                         }
                     });
-
 
                     if ( row.child.isShown() ) {
                         // This row is already open - close it

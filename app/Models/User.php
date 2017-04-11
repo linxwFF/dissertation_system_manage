@@ -26,4 +26,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //用户表
+    public function teach()
+    {
+        return $this->morphMany( App\Models\Admin\AdminUser::class, 'admin_users','userable_type','user_id');
+    }
 }

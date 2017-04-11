@@ -16,7 +16,7 @@
         <div class="panel-heading">
             <div class="row page-title-row" style="margin:5px;">
             <div class="col-md-6">
-                <h3 class="panel-title">编辑用户(修改密码则填写密码)</h3>
+                <h3 class="panel-title">新增用户</h3>
             </div>
             </div>
         </div>

@@ -10,9 +10,10 @@ use App\Models\Admin\Role;
 use App\Models\StudentBaseInfo;
 use App\Models\TeachBaseInfo;
 
-
 use App\Http\Requests\AdminUserCreateRequest;
 use App\Http\Requests\AdminUserUpdateRequest;
+
+use Illuminate\Support\Facades\Schema;
 
 class UserController extends Controller
 {
@@ -146,21 +147,66 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminUserCreateRequest $request)
+    // public function store(AdminUserCreateRequest $request)
+    public function store(Request $request)
     {
-        $user = new AdminUser();
-        foreach (array_keys($this->fields) as $field) {
-            $user->$field = $request->get($field);
-        }
-        $user->password = bcrypt($request->get('password'));
-        unset($user->roles);
-        $user->save();
-        if (is_array($request->get('roles'))) {
-            $user->giveRoleTo($request->get('roles'));
-        }
-        //event(new \App\Events\userActionEvent('\App\Models\Admin\AdminUser', $user->id, 1, '添加了用户' . $user->name));
+        dd($request->all());
+        if($request->get('role_id') == 1 ){
+            //教工
+            $teach = new TeachBaseInfo();
+            $teachColumns = Schema::getColumnListing('teach_base_info');    //获取教师表字段
+            unset($teachColumns[0]);    //去除ID
+            foreach (array_values($teachColumns) as $column) {
+                $teach->$column = $request->get($column);
+            }
+            $teach->save();
+            $user_id = $teach->id;
 
-        return redirect('/admin/user')->withSuccess('添加成功！');
+            $user = new AdminUser();
+            foreach (array_keys($this->fields) as $field) {
+                $user->$field = $request->get($field);
+            }
+            $user->password = bcrypt($request->get('password'));
+            $user->user_id = $user_id;
+            $user->userable_type = "App\Models\TeachBaseInfo";
+            $user->role_id = 1;
+
+            unset($user->roles);
+            $user->save();
+            if (is_array($request->get('roles'))) {
+                $user->giveRoleTo($request->get('roles'));
+            }
+
+            return redirect('/admin/user')->withSuccess('添加成功！');
+
+        }else if($request->get('role_id') == 2){
+            //学生
+            $student = new StudentBaseInfo();
+            $studentColumns = Schema::getColumnListing('student_base_info');    //获取学生表字段
+            unset($studentColumns[0]);    //去除ID
+            foreach (array_values($studentColumns) as $column) {
+                $student->$column = $request->get($column);
+            }
+            $student->save();
+            $user_id = $student->id;
+
+            $user = new AdminUser();
+            foreach (array_keys($this->fields) as $field) {
+                $user->$field = $request->get($field);
+            }
+            $user->password = bcrypt($request->get('password'));
+            $user->user_id = $user_id;
+            $user->userable_type = "App\Models\StudentBaseInfo";
+            $user->role_id = 2;
+
+            unset($user->roles);
+            $user->save();
+            if (is_array($request->get('roles'))) {
+                $user->giveRoleTo($request->get('roles'));
+            }
+
+            return redirect('/admin/user')->withSuccess('添加成功！');
+        }
     }
 
     /**
