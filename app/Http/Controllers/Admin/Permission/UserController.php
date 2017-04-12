@@ -18,9 +18,12 @@ use Illuminate\Support\Facades\Schema;
 class UserController extends Controller
 {
     protected $fields = [
-        'name'  => '',
+        'user_id'  => '',
+        'userable_type' => '',
+        'role_id' => '',
+        'name' => '',
         'email' => '',
-        'roles' => [],
+        'password' => '',
     ];
     /**
      * Display a listing of the resource.
@@ -120,7 +123,7 @@ class UserController extends Controller
 
     public function get_extra_property($id)
     {
-        $data_extra_property = current(AdminUser::find($id)->admin_users()->get()->toArray());
+        $data_extra_property = current(AdminUser::find($id)->extra_property()->get()->toArray());
         unset($data_extra_property['id']);  //去除ID
         return $data_extra_property;
     }
@@ -137,6 +140,7 @@ class UserController extends Controller
             $data[$field] = old($field, $default);
         }
         $data['rolesAll'] = Role::all()->toArray();
+        $data['action'] = "create";
 
         return view('admin.permission.user.create', $data);
     }
@@ -150,7 +154,6 @@ class UserController extends Controller
     // public function store(AdminUserCreateRequest $request)
     public function store(Request $request)
     {
-        dd($request->all());
         if($request->get('role_id') == 1 ){
             //教工
             $teach = new TeachBaseInfo();
@@ -165,17 +168,12 @@ class UserController extends Controller
             $user = new AdminUser();
             foreach (array_keys($this->fields) as $field) {
                 $user->$field = $request->get($field);
+                if($field == "password") $user->password = bcrypt($request->get('password'));
+                if($field == "user_id")  $user->user_id = $user_id;
+                if($field == "userable_type")  $user->userable_type = "App\Models\TeachBaseInfo";
             }
-            $user->password = bcrypt($request->get('password'));
-            $user->user_id = $user_id;
-            $user->userable_type = "App\Models\TeachBaseInfo";
-            $user->role_id = 1;
 
-            unset($user->roles);
             $user->save();
-            if (is_array($request->get('roles'))) {
-                $user->giveRoleTo($request->get('roles'));
-            }
 
             return redirect('/admin/user')->withSuccess('添加成功！');
 
@@ -193,17 +191,12 @@ class UserController extends Controller
             $user = new AdminUser();
             foreach (array_keys($this->fields) as $field) {
                 $user->$field = $request->get($field);
+                if($field == "password") $user->password = bcrypt($request->get('password'));
+                if($field == "user_id")  $user->user_id = $user_id;
+                if($field == "userable_type")  $user->userable_type = "App\Models\StudentBaseInfo";
             }
-            $user->password = bcrypt($request->get('password'));
-            $user->user_id = $user_id;
-            $user->userable_type = "App\Models\StudentBaseInfo";
-            $user->role_id = 2;
 
-            unset($user->roles);
             $user->save();
-            if (is_array($request->get('roles'))) {
-                $user->giveRoleTo($request->get('roles'));
-            }
 
             return redirect('/admin/user')->withSuccess('添加成功！');
         }
@@ -242,6 +235,9 @@ class UserController extends Controller
         }
         $data['rolesAll'] = Role::all()->toArray();
         $data['id'] = (int)$id;
+        $data['extra_property'] = current($user->extra_property()->get()->toArray());
+        $data['action'] = "edit";
+
         //event(new \App\Events\userActionEvent('\App\Models\Admin\AdminUser', $user->id, 3, '编辑了用户' . $user->name));
 
         return view('admin.permission.user.edit', $data);
@@ -254,22 +250,60 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUserUpdateRequest $request, $id)
+    // public function update(AdminUserUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $user = AdminUser::find((int)$id);
-        foreach (array_keys($this->fields) as $field) {
-            $user->$field = $request->get($field);
+        $user_id = $user->user_id;
+        $role_id = $user->role_id;
+
+        if($user->role_id  == 1 ){
+
+            foreach (array_keys($this->fields) as $field) {
+                $user->$field = $request->get($field);
+                if($field == "password") $user->password = bcrypt($request->get('password'));
+                if($field == "user_id")  $user->user_id = $user_id;
+                if($field == "userable_type")  $user->userable_type = "App\Models\TeachBaseInfo";
+                if($field == "role_id") $user->role_id = $role_id;
+            }
+
+            $user->save();
+
+            //教工
+            $teach = TeachBaseInfo::find($user_id);
+            $teachColumns = Schema::getColumnListing('teach_base_info');    //获取教师表字段
+            unset($teachColumns[0]);    //去除ID
+            foreach (array_values($teachColumns) as $column) {
+                $teach->$column = $request->get($column);
+            }
+
+            $teach->save();
+
+            return redirect('/admin/user')->withSuccess('添加成功！');
+
+        }else if($user->role_id == 2){
+
+            foreach (array_keys($this->fields) as $field) {
+                $user->$field = $request->get($field);
+                if($field == "password") $user->password = bcrypt($request->get('password'));
+                if($field == "user_id")  $user->user_id = $user_id;
+                if($field == "userable_type")  $user->userable_type = "App\Models\StudentBaseInfo";
+                if($field == "role_id") $user->role_id = $role_id;
+            }
+
+            $user->save();
+
+            //学生
+            $student = StudentBaseInfo::find($user_id);
+            $studentColumns = Schema::getColumnListing('student_base_info');    //获取学生表字段
+            unset($studentColumns[0]);    //去除ID
+            foreach (array_values($studentColumns) as $column) {
+                $student->$column = $request->get($column);
+            }
+            $student->save();
+
+            return redirect('/admin/user')->withSuccess('添加成功！');
         }
-        unset($user->roles);
-        if ($request->get('password') != '') {
-            $user->password = bcrypt($request->get('password'));
-
-        }
-
-        $user->save();
-        $user->giveRoleTo($request->get('roles', []));
-
-        return redirect('/admin/user')->withSuccess('修改成功！');
     }
 
     /**

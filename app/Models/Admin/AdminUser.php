@@ -23,12 +23,6 @@ class AdminUser extends Authenticatable
      */
     protected $hidden = ['password', 'remember_token'];
 
-    //用户角色
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class,'admin_role_user','user_id','role_id');
-    }
-
     // 判断用户是否具有某个角色
     public function hasRole($role)
     {
@@ -50,25 +44,8 @@ class AdminUser extends Authenticatable
         return $this->hasRole($permission->roles);
     }
 
-    // 给用户分配角色
-    public function assignRole($role)
-    {
-        return $this->roles()->save($role);
-    }
-
-
-    //角色整体添加与修改
-    public function giveRoleTo(array $RoleId){
-        $this->roles()->detach();
-        $roles=Role::whereIn('id',$RoleId)->get();
-        foreach ($roles as $v){
-            $this->assignRole($v);
-        }
-        return true;
-    }
-
     //目前只有学生和老师两个模型，多态关联
-    public function admin_users()
+    public function extra_property()
     {
         return $this->morphTo('admin_users','userable_type','user_id');
     }
