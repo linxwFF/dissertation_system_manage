@@ -14,6 +14,7 @@ use App\Http\Requests\AdminUserCreateRequest;
 use App\Http\Requests\AdminUserUpdateRequest;
 
 use Illuminate\Support\Facades\Schema;
+use DB;
 
 class UserController extends Controller
 {
@@ -315,17 +316,41 @@ class UserController extends Controller
     public function destroy($id)
     {
         $tag = AdminUser::find((int)$id);
-        foreach ($tag->roles as $v) {
-            $tag->roles()->detach($v);
-        }
-        if ($tag && $tag->id != 1) {
-            $tag->delete();
-        } else {
-            return redirect()->back()
-                ->withErrors("删除失败");
-        }
+        $role_id = $tag->role_id;
+        $user_id = $tag->user_id;
 
-        return redirect()->back()
-            ->withSuccess("删除成功");
+        if($role_id == 1){
+            //教师
+            DB::beginTransaction();
+            try {
+                $teach = TeachBaseInfo::find($user_id);
+                $teach->delete();
+                $tag->delete();
+            } catch (Exception $e) {
+                DB::rollback();
+
+                return redirect()->back()->withErrors("删除失败");
+            }
+            DB::commit();
+
+            return redirect()->back()->withSuccess("删除成功");
+        }else if($role_id == 2){
+            //学生
+            DB::beginTransaction();
+            try {
+                $teach = StudentBaseInfo::find($user_id);
+                $teach->delete();
+                $tag->delete();
+            } catch (Exception $e) {
+                DB::rollback();
+
+                return redirect()->back()->withErrors("删除失败");
+            }
+            DB::commit();
+
+            return redirect()->back()->withSuccess("删除成功");
+        }else{
+            return redirect()->back()->withErrors("删除失败");
+        }
     }
 }
