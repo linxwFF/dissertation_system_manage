@@ -23,7 +23,7 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     *
+     * 登录成功跳转页
      * @var string
      */
     protected $redirectTo = '/admin/home';
@@ -36,5 +36,11 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    //重写指定登录页
+    public function showLoginForm()
+    {
+        return view('admin.login');
     }
 }

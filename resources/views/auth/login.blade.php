@@ -28,8 +28,8 @@
 				<div class="panel-body">
 					<div class="mar-ver pad-btm">
 						<h3 class="h4 mar-no">帐号 登录</h3>
-						<p class="text-muted">Sign In to your account</p>
 					</div>
+                    @include('admin.partials.errors')   {{--错误提示--}}
 
 
 					<form role="form" method="POST" action="{{ route('login') }}">
@@ -42,6 +42,15 @@
 						<div class="form-group">
 							<input type="password" class="form-control" placeholder="Password" name="password" >
 						</div>
+
+                        <div class="form-group">
+                        <select class="form-control">
+                            <option>请选择角色</option>
+                            <option value="1">教师</option>
+                            <option value="2">学生</option>
+                            <option value="admin">超级管理员</option>
+                          </select>
+                        </div>
 
 						<div class="checkbox pad-btm text-left">
 							<input id="demo-form-checkbox" class="magic-checkbox" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
