@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    echo "已经退出"."<a href='/login'>登录</a>";
+    echo "已经退出"."<a href='/login'>前台登录</a>"."<br/>";
+    echo "已经退出"."<a href='admin/login'>后台登录</a>";
 });
 
 Route::get('/404', function () {
@@ -23,12 +24,22 @@ Route::get('/500', function () {
     return view('errors.500');
 });
 
+//前台登录 (自带的认证驱动)
 Auth::routes();
+Route::get('/home', function () {
+    return view('home');
+});
+
+//后台登录
+Route::get('admin/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
+Route::post('admin/login', 'Admin\LoginController@login');
+Route::get('admin/logout', 'Admin\oginController@logout')->name('admin.logout');
+Route::post('admin/logout', 'Admin\LoginController@logout');
 
 // 使用 Auth 中间件,前缀 admin
-Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
+Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin'],'prefix' => 'admin'], function () {
 
-    Route::get('/home', 'HomeController@index');
+    Route::get('/home', 'Admin\HomeController@index');
 
     //权限管理/权限列表
     Route::get('/permission/{cid}/create','Admin\Permission\PermissionController@create');    //新增页面
@@ -47,4 +58,6 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
     Route::get('/user/extra_property/{id}', 'Admin\Permission\UserController@get_extra_property');//请求用户扩展数据
     Route::resource('user', 'Admin\Permission\UserController');
 
+
+    Route::get('/getMenuTest', 'Admin\HomeController@getMenuTest');
 });

@@ -18,7 +18,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/admin/home');
+            //区分前后台的登录
+            $url = $guard ? 'admin/home':'/home';
+            return redirect($url);
         }
 
         return $next($request);

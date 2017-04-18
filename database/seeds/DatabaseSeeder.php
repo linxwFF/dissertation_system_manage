@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         if ($first_init) {
             $this->call(UserTableSeeder::class);
             $this->command->info('init UserInfo success!');
+
+            //生成 左侧菜单权限列表
             $this->call(AdminInitSeeder::class);
             $this->command->info('init AdminInitSeeder success!');
 

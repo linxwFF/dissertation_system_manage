@@ -85,13 +85,13 @@
 
                         <!-- Dropdown footer -->
                         <div class="pad-all text-right">
-                            <a href="{{ route('logout') }}" class="btn btn-primary"
+                            <a href="{{ route('admin.logout') }}" class="btn btn-primary"
                                 onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
                                 <i class="ti-unlock icon-fw"></i> 退出登录
                             </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </div>

@@ -12,7 +12,7 @@ class AdminInitSeeder extends Seeder
     // 权限管理数据填充，初始化项目时生成
     public function run()
     {
-        \App\Models\Admin\AdminUser::truncate();
+        // \App\Models\Admin\AdminUser::truncate();
         \App\Models\Admin\Permission::truncate();
         \DB::select(
             <<<SQL
@@ -30,7 +30,17 @@ VALUES
 	(10, 'admin.user.index', '用户管理', '', 1, '', '2016-05-23 10:38:52', '2016-05-23 10:38:52'),
 	(11, 'admin.user.create', '用户添加', '', 1, '', '2016-05-23 10:39:21', '2016-06-22 13:49:29'),
 	(12, 'admin.user.edit', '用户编辑', '', 1, '', '2016-05-23 10:39:52', '2016-05-23 10:39:52'),
-	(13, 'admin.user.destroy', '用户删除', '', 1, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
+	(13, 'admin.user.destroy', '用户删除', '', 1, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36'),
+
+    (14, 'chooseTask.declare', '课题申报环节', '', 0, 'fa-users', '2016-05-23 10:40:33', '2016-05-23 10:40:36'),
+    (15, 'chooseTask.declare.index', '课题申报', '', 14, '', '2016-05-23 10:40:31', '2016-05-23 10:40:36'),
+    (16, 'chooseTask.declare.review.', '课题审核', '', 14, '', '2016-05-23 10:40:32', '2016-05-23 10:40:36'),
+    (17, 'chooseTask.declare.collect', '选题情况汇总', '', 14, '', '2016-05-23 10:40:34', '2016-05-23 10:40:36'),
+    (18, 'chooseTask.declare.teachArrange', '指导教师安排', '', 14, '', '2016-05-23 10:40:35', '2016-05-23 10:40:36'),
+    (19, 'chooseTask.declare.taskCollect', '课题汇总', '', 14, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36'),
+    (20, 'chooseTask.declare.participants', '课题参与人确定', '', 14, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36'),
+    (21, 'chooseTask.declare.taskModifyApply', '课题修改申请审核', '', 14, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
+
 SQL
         );
 

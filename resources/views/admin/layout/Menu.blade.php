@@ -33,9 +33,32 @@
 
                     <!-- 左边的导航列表 -->
                     <ul id="mainnav-menu" class="list-group">
+                        <?php $comData=Request::get('comData_menu'); ?>
+                        <?php
+                            foreach($comData as $k=>$v)
+                            {
+                                foreach ($v as $key => $value) {
+                                    echo $value['id']."<br/>";
+                                }
+                            }
+
+                        ?>
+                        {{--
+                        @foreach($comData['top'] as $v)
+                            <li class="treeview  @if(in_array($v['id'],$comData['openarr'])) active @endif">
+                                <a href="#"><i class="fa {{ $v['icon'] }}"></i> <span>{{$v['label']}}</span> <i
+                                            class="fa fa-angle-left pull-right"></i></a>
+                                <ul class="treeview-menu">
+                                    @foreach($comData[$v['id']] as $vv)
+                                        <li @if(in_array($vv['id'],$comData['openarr'])) class="active" @endif><a href="{{URL::route($vv['name'])}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>{{$vv['label']}}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
+                        --}}
 
                         <!--超级管理员-->
-                        <li>
+                        <li class="active">
                             <a href="#">
                                 <i class="ti-lock"></i>
 						                    <span class="menu-title">
@@ -45,8 +68,8 @@
                             </a>
 
                             <!--子项目-->
-                            <ul class="collapse">
-                                <li><a href="/admin/permission/index"><i class="ti-target"></i>权限列表</a></li>
+                            <ul class="collapse in" aria-expanded="true">
+                                <li><a href="/admin/permission/index" class="active"><i class="ti-target"></i>权限列表</a></li>
                                 <li><a href="/admin/role/index">角色列表</a></li>
                                 <li><a href="/admin/user/index">用户管理</a></li>
                             </ul>
@@ -74,7 +97,7 @@
                             </ul>
                         </li>
 
-                        <li>
+                        {{--<li>
                             <a href="#">
                                 <i class="ti-files"></i>
 						                    <span class="menu-title">
@@ -191,6 +214,7 @@
                                 <li><a href="#">任务书下达</a></li>
                             </ul>
                         </li>
+                        --}}
 
                     </ul>
                 </div>

@@ -32,7 +32,7 @@
                     @include('admin.partials.errors')   {{--错误提示--}}
 
 
-					<form role="form" method="POST" action="{{ route('login') }}">
+					<form role="form" method="POST" action="{{ route('admin.login') }}">
                         {{ csrf_field() }}
 
 						<div class="form-group">

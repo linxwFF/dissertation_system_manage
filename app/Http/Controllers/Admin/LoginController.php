@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
-//前台登录
 class LoginController extends Controller
 {
     /*
@@ -24,10 +22,12 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     * 登录成功跳转页
+     *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/home';
+    protected $username;
+
 
     /**
      * Create a new controller instance.
@@ -36,12 +36,37 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest:admin', ['except' => 'logout']);
     }
 
-    //重写指定登录页
+    //重写登录视图页面
     public function showLoginForm()
     {
-        return view('auth._login');
+        return view('admin.login');
     }
+
+    //自定义认证驱动
+    protected function guard()
+    {
+        return auth()->guard('admin');
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
+    {
+        $this->guard('admin')->logout();
+
+        request()->session()->flush();
+
+        request()->session()->regenerate();
+
+        return redirect('/admin/login');
+    }
+
+
 }
