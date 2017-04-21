@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Auth;
 
 use App\Models\Admin\Permission;
+use App\Models\Admin\PermissionRole;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -38,10 +39,12 @@ class AuthServiceProvider extends ServiceProvider
 
         $permissions = \App\Models\Admin\Permission::with('roles')->get();  //所有的权限
 
+        $gate->define('admin.home','App\Http\Controllers\Admin\HomeController@index');
+
         //附加权限
         foreach ($permissions as $permission) {
             $gate->define($permission->name, function ($user) use ($permission) {
-                return $user->hasPermission($permission);
+                return $user->has_permission($permission);
             });
         }
     }

@@ -23,27 +23,6 @@ class AdminUser extends Authenticatable
      */
     protected $hidden = ['password', 'remember_token'];
 
-    // 判断用户是否具有某个角色
-    public function hasRole($role)
-    {
-        if (is_string($role)) {
-            return $this->roles->contains('name', $role);
-        }
-
-        return !!$role->intersect($this->roles)->count();
-    }
-
-    // 判断用户是否具有某权限
-    public function hasPermission($permission)
-    {
-        if (is_string($permission)) {
-            $permission = Permission::where('name',$permission)->first();
-            if (!$permission) return false;
-        }
-
-        return $this->hasRole($permission->roles);
-    }
-
     //目前只有学生和老师两个模型，多态关联
     public function extra_property()
     {
@@ -51,9 +30,19 @@ class AdminUser extends Authenticatable
     }
 
     //获取用户的权限
-    public function get_permission()
+    public function get_permissions()
     {
+        $permissions = PermissionRole::
+        join('admin_permissions','permission_id','=','id')->where('role_id',$this->role_id)->get(['id']);
 
+        return $permissions;
     }
 
+    //判断用户是否拥有某种权限
+    public function has_permission($per)
+    {
+        $permission = PermissionRole::where('role_id',$this->role_id)->where('permission_id',$per->id)->first();
+        if (!$permission) return false;
+        return true;
+    }
 }

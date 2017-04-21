@@ -46,8 +46,11 @@ class GetMenu
 
         $table = \App\Models\Admin\Permission::where('name', 'LIKE', '%index')->orWhere('cid', 0)->get();
 
+        // dd(auth('admin')->user());
         foreach ($table as $v) {
+            // echo "$v->name".\Gate::forUser(auth('admin')->user())->check($v->name) ."<br/>";
             if ($v->cid == 0 || \Gate::forUser(auth('admin')->user())->check($v->name)) {
+
                 if ($v->name == $urlPath) {
                     $openArr[] = $v->id;
                     $openArr[] = $v->cid;
@@ -64,7 +67,7 @@ class GetMenu
         unset($data[0]);
         //ation open 可以在函数中计算给他
         $data['openarr'] = array_unique($openArr);
-
+// dd($data);
         return $data;
 
     }

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Gate;
 use App\Http\Controllers\Controller;
 
+use App\Models\Admin\PermissionRole;
+
 class HomeController extends Controller
 {
     /**
@@ -16,7 +18,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request->get('comData_menu'));
         return view('admin.dashboard');
     }
 
