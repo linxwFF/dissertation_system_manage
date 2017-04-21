@@ -45,7 +45,7 @@
                                     <!--<img class="img-circle img-user media-object" src="img/av1.png" alt="Profile Picture">-->
                                     <i class="ti-face-smile ic-user"></i>
                                 </span>
-                        <div class="username hidden-xs">John Doe</div>
+                        <div class="username hidden-xs">{{ auth('admin')->user()->name }}</div>
                     </a>
 
 

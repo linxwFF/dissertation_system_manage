@@ -50,4 +50,10 @@ class AdminUser extends Authenticatable
         return $this->morphTo('admin_users','userable_type','user_id');
     }
 
+    //获取用户的权限
+    public function get_permission()
+    {
+
+    }
+
 }

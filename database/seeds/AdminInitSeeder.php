@@ -18,7 +18,7 @@ class AdminInitSeeder extends Seeder
             <<<SQL
                 INSERT INTO `admin_permissions` (`id`, `name`, `label`, `description`, `cid`, `icon`, `created_at`, `updated_at`)
 VALUES
-	(1, 'admin.permission', '权限管理', '', 0, 'fa-users', '2016-05-21 10:06:50', '2016-06-22 13:49:09'),
+	(1, 'admin.permission', '权限管理', '', 0, 'ti-lock', '2016-05-21 10:06:50', '2016-06-22 13:49:09'),
 	(2, 'admin.permission.index', '权限列表', '', 1, '', '2016-05-21 10:08:04', '2016-05-21 10:08:04'),
 	(3, 'admin.permission.create', '权限添加', '', 1, '', '2016-05-21 10:08:18', '2016-05-21 10:08:18'),
 	(4, 'admin.permission.edit', '权限修改', '', 1, '', '2016-05-21 10:08:35', '2016-05-21 10:08:35'),
@@ -32,14 +32,14 @@ VALUES
 	(12, 'admin.user.edit', '用户编辑', '', 1, '', '2016-05-23 10:39:52', '2016-05-23 10:39:52'),
 	(13, 'admin.user.destroy', '用户删除', '', 1, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36'),
 
-    (14, 'chooseTask.declare', '课题申报环节', '', 0, 'fa-users', '2016-05-23 10:40:33', '2016-05-23 10:40:36'),
-    (15, 'chooseTask.declare.index', '课题申报', '', 14, '', '2016-05-23 10:40:31', '2016-05-23 10:40:36'),
-    (16, 'chooseTask.declare.review.', '课题审核', '', 14, '', '2016-05-23 10:40:32', '2016-05-23 10:40:36'),
-    (17, 'chooseTask.declare.collect', '选题情况汇总', '', 14, '', '2016-05-23 10:40:34', '2016-05-23 10:40:36'),
-    (18, 'chooseTask.declare.teachArrange', '指导教师安排', '', 14, '', '2016-05-23 10:40:35', '2016-05-23 10:40:36'),
-    (19, 'chooseTask.declare.taskCollect', '课题汇总', '', 14, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36'),
-    (20, 'chooseTask.declare.participants', '课题参与人确定', '', 14, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36'),
-    (21, 'chooseTask.declare.taskModifyApply', '课题修改申请审核', '', 14, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
+    (14, 'chooseTask.declare', '课题申报环节', '', 0, 'ti-receipt', '2016-05-23 10:40:33', '2016-05-23 10:40:36'),
+    (15, 'chooseTask.declare.taskIndex.index', '课题申报', '', 14, '', '2016-05-23 10:40:31', '2016-05-23 10:40:36'),
+    (16, 'chooseTask.declare.taskReview.index', '课题审核', '', 14, '', '2016-05-23 10:40:32', '2016-05-23 10:40:36'),
+    (17, 'chooseTask.declare.chooseTaskCollect.index', '选题情况汇总', '', 14, '', '2016-05-23 10:40:34', '2016-05-23 10:40:36'),
+    (18, 'chooseTask.declare.teachArrange.index', '指导教师安排', '', 14, '', '2016-05-23 10:40:35', '2016-05-23 10:40:36'),
+    (19, 'chooseTask.declare.taskCollect.index', '课题汇总', '', 14, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36'),
+    (20, 'chooseTask.declare.particiPants.index', '课题参与人确定', '', 14, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36'),
+    (21, 'chooseTask.declare.taskModifyApply.index', '课题修改申请审核', '', 14, '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
 
 SQL
         );

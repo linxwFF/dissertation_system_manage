@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Auth;
+
+use App\Models\Admin\Permission;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -33,8 +36,9 @@ class AuthServiceProvider extends ServiceProvider
         });
         $this->registerPolicies($gate);
 
-        $permissions = \App\Models\Admin\Permission::with('roles')->get();
+        $permissions = \App\Models\Admin\Permission::with('roles')->get();  //所有的权限
 
+        //附加权限
         foreach ($permissions as $permission) {
             $gate->define($permission->name, function ($user) use ($permission) {
                 return $user->hasPermission($permission);

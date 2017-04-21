@@ -34,29 +34,26 @@
                     <!-- 左边的导航列表 -->
                     <ul id="mainnav-menu" class="list-group">
                         <?php $comData=Request::get('comData_menu'); ?>
-                        <?php
-                            foreach($comData as $k=>$v)
-                            {
-                                foreach ($v as $key => $value) {
-                                    echo $value['id']."<br/>";
-                                }
-                            }
-
-                        ?>
-                        {{--
                         @foreach($comData['top'] as $v)
-                            <li class="treeview  @if(in_array($v['id'],$comData['openarr'])) active @endif">
-                                <a href="#"><i class="fa {{ $v['icon'] }}"></i> <span>{{$v['label']}}</span> <i
-                                            class="fa fa-angle-left pull-right"></i></a>
-                                <ul class="treeview-menu">
-                                    @foreach($comData[$v['id']] as $vv)
-                                        <li @if(in_array($vv['id'],$comData['openarr'])) class="active" @endif><a href="{{URL::route($vv['name'])}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>{{$vv['label']}}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endforeach
-                        --}}
+                        <li @if(in_array($v['id'],$comData['openarr'])) active @endif>
+                            <a href="#">
+                                <i class="{{$v['icon']}}"></i>
+						                    <span class="menu-title">
+												<strong>{{$v['label']}}</strong>
+											</span>
+                                <i class="arrow"></i>
+                            </a>
 
+                            <!--子项目-->
+                            <ul  @if(in_array($v['id'],$comData['openarr'])) class="collapse in" aria-expanded="true" @endif>
+                                @foreach($comData[$v['id']] as $vv)
+                                    <li> <a href="<?php echo "/".str_replace(".","/",$vv['name']) ?>" @if(in_array($vv['id'],$comData['openarr'])) class="active"><i class="ti-target"></i> @else > @endif  {{$vv['label']}} </a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+
+                        {{--
                         <!--超级管理员-->
                         <li class="active">
                             <a href="#">
@@ -96,7 +93,7 @@
                                 <li><a href="#">课题修改申请审核</a></li>
                             </ul>
                         </li>
-
+                        --}}
                         {{--<li>
                             <a href="#">
                                 <i class="ti-files"></i>
