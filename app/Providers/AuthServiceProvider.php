@@ -30,11 +30,11 @@ class AuthServiceProvider extends ServiceProvider
         if (!empty($_SERVER['SCRIPT_NAME']) && strtolower($_SERVER['SCRIPT_NAME']) === 'artisan') {
             return false;
         }
-        $gate->before(function ($user, $ability) {
-            if ($user->id === 1) {
-                return true;
-            }
-        });
+        // $gate->before(function ($user, $ability) {
+        //     if ($user->id === 1) {
+        //         return true;
+        //     }
+        // });
         $this->registerPolicies($gate);
 
         $permissions = \App\Models\Admin\Permission::with('roles')->get();  //所有的权限

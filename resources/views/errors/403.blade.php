@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
 {{--标题--}}
-@section('title','404')
+@section('title','403')
 
 @section('container')
     <div id="container" class="cls-container">
@@ -20,10 +20,10 @@
         <!-- CONTENT -->
         <!--===================================================-->
         <div class="cls-content">
-            <h1 class="error-code text-info">404</h1>
-            <p class="text-main text-semibold text-lg text-uppercase">Page Not Found!</p>
+            <h1 class="error-code text-info">403</h1>
+            <p class="text-main text-semibold text-lg text-uppercase">拒绝访问</p>
             <div class="pad-btm text-muted">
-                Sorry, 您访问的页面消失在银河系中。
+                Sorry, 您没有权限访问该功能。
             </div>
             <div class="row mar-ver">
                 <form class="col-xs-12 col-sm-10 col-sm-offset-1" method="post" action="pages-search-results.html">

@@ -17,6 +17,7 @@ class GetMenu
      */
     public function handle($request, Closure $next)
     {
+        //设置全局的菜单属性
         $request->attributes->set('comData_menu', $this->getMenu());
         return $next($request);
     }
@@ -27,9 +28,9 @@ class GetMenu
      */
     function getMenu()
     {
-        $openArr = [];
+        $openArr = [];  //打开的项目
         $data = [];
-        $data['top'] = [];
+        $data['top'] = [];  //顶级目录
         //查找并拼接出地址的别名值
         $path_arr = explode('/', \URL::getRequest()->path());
         if (isset($path_arr[1])) {
@@ -60,7 +61,7 @@ class GetMenu
         }
         foreach ($data[0] as $v) {
             if (isset($data[$v['id']]) && is_array($data[$v['id']]) && count($data[$v['id']]) > 0) {
-                $data['top'][] = $v;
+                $data['top'][] = $v;    //顶级目录
             }
         }
 

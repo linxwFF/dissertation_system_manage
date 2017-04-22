@@ -32,4 +32,9 @@ class Authenticate
 
         return $next($request);
     }
+
+    public static function getAuthUser($guard = null)
+    {
+        return auth($guard)->user();
+    }
 }

@@ -25,14 +25,12 @@ class AuthenticateAdmin
         // }
 
         $previousUrl = URL::previous();
-        // $routeName = starts_with(Route::currentRouteName(), 'admin.') ? Route::currentRouteName() : 'admin.' . Route::currentRouteName();
-
-        $routeName = str_replace('/','.',substr($_SERVER['REQUEST_URI'],1));
+        //路由名字，以admin开头
+        $routeName = starts_with(Route::currentRouteName(), 'admin.') ? Route::currentRouteName() : 'admin.' . Route::currentRouteName();
 
         if($routeName == "admin.home"){
             return $next($request);
         }
-
         //判断登录到后台的用户是否具有某种权限
         if (!\Gate::forUser(auth('admin')->user())->check($routeName)) {
             //如果没有admin的权限
