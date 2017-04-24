@@ -34,7 +34,7 @@ $(function () {
                     order: [[1, "asc"]],
                     serverSide: true,
                     ajax: {
-                        url: '/admin/user/index',
+                        url: '{{ route('admin.user.index') }}',
                         type: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

@@ -47,7 +47,7 @@
                             <!--子项目-->
                             <ul  @if(in_array($v['id'],$comData['openarr'])) class="collapse in" aria-expanded="true" @endif>
                                 @foreach($comData[$v['id']] as $vv)
-                                    <li> <a href="<?php echo "/".str_replace(".","/",$vv['name']) ?>" @if(in_array($vv['id'],$comData['openarr'])) class="active"><i class="ti-target"></i> @else > @endif  {{$vv['label']}} </a></li>
+                                    <li> <a href="<?php echo url("/".str_replace(".","/",$vv['name'])); ?>" @if(in_array($vv['id'],$comData['openarr'])) class="active"><i class="ti-target"></i> @else > @endif  {{$vv['label']}} </a></li>
                                 @endforeach
                             </ul>
                         </li>

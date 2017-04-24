@@ -23,7 +23,7 @@
 
         <div class="panel-body">
 
-            <form class="form-horizontal" role="form" method="POST" action="/admin/user">
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.user.create')}}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="cove_image"/>
                 @include('admin.permission.user._form')

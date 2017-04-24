@@ -50,7 +50,7 @@ $(function () {
                     order: [[0, "asc"]],
                     serverSide: true,
                     ajax: {
-                        url: '/admin/role/index',
+                        url: '{{ route('admin.role.index') }}',
                         type: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

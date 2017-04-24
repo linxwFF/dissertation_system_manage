@@ -53,7 +53,7 @@ $(function () {
                     serverSide: true,
 
                     ajax: {
-                        url: '/admin/permission/index',
+                        url: '{{ route('admin.permission.index') }}',
                         type: 'POST',
                         data: function (d) {
                             d.cid = cid;    //回调传参cid
@@ -85,12 +85,12 @@ $(function () {
 
                             //下级菜单
                             if (cid == 0) {
-                                str += '<a style="margin:3px;"  href="/admin/permission/' + row['id'] + '" class="btn-xs text-success "><i class="ti-arrow-circle-down"></i>下级菜单</a>';
+                                str += '<a style="margin:3px;"  href="' + row['id'] + '" class="btn-xs text-success "><i class="ti-arrow-circle-down"></i>下级菜单</a>';
                             }
 
                             //编辑
                             if (row_edit) {
-                                str += '<a style="margin:3px;" href="/admin/permission/' + row['id'] + '/edit" class="btn-xs text-success "><i class="ti-pencil"></i> 编辑</a>';
+                                str += '<a style="margin:3px;" href="' + row['id'] + '/edit" class="btn-xs text-success "><i class="ti-pencil"></i> 编辑</a>';
                             }
 
                             //删除
@@ -124,7 +124,7 @@ $(function () {
 
                 $("table").delegate('.delBtn', 'click', function () {
                     var id = $(this).attr('attr');
-                    $('.deleteForm').attr('action', '/admin/permission/' + id);     //添加ID到表单
+                    $('.deleteForm').attr('action', id);     //添加ID到表单
                     $("#modal-delete").modal();
                 });
 
@@ -149,14 +149,14 @@ $(function () {
                     @if($cid == 0 )
                     <span style="margin:3px;" id="cid" attr="{{$cid}}" class="btn-flat text-info"> 顶级菜单</span>
                     @else
-                    <a style="margin:3px;" href="/admin/permission" id="cid" attr="{{$cid}}"
+                    <a style="margin:3px;" href="permission" id="cid" attr="{{$cid}}"
                        class="btn btn-warning btn-md animation-shake reloadBtn"><i class="ti-control-backward"></i> 返回顶级菜单
                     </a>
                     @endif
                 </div>
 
                 <div class="col-md-6 text-right">
-                    <a href="/admin/permission/{{$cid}}/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加权限 </a>
+                    <a href="{{$cid}}/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加权限 </a>
                 </div>
                 </div>
 
