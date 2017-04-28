@@ -138,12 +138,18 @@ class RoleController extends Controller
         }
 
         $role = Role::find((int)$id);
-        foreach ($role->users as $v){
-            $role->users()->detach($v);
+
+        if(!empty($role->users)){
+            foreach ($role->users as $v){
+                $role->users()->detach($v);
+            }
         }
 
-        foreach ($role->permissions as $v){
-            $role->permissions()->detach($v);
+        if(!empty($role->permissions))
+        {
+            foreach ($role->permissions as $v){
+                $role->permissions()->detach($v);
+            }
         }
 
         if ($role) {

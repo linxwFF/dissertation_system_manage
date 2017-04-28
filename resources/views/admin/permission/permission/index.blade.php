@@ -124,7 +124,7 @@ $(function () {
 
                 $("table").delegate('.delBtn', 'click', function () {
                     var id = $(this).attr('attr');
-                    $('.deleteForm').attr('action', id);     //添加ID到表单
+                    $('.deleteForm').attr('action', '/admin/permission/' + id);     //添加ID到表单
                     $("#modal-delete").modal();
                 });
 
