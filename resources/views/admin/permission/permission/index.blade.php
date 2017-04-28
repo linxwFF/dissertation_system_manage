@@ -75,12 +75,8 @@ $(function () {
                         {
                             'targets': -1, "render": function (data, type, row) {
 
-                            {{--// var row_edit = {{Gate::forUser(auth('admin')->user())->check('admin.permission.edit') ? 1 : 0}};
-                            // var row_delete = {{Gate::forUser(auth('admin')->user())->check('admin.permission.destroy') ? 1 :0}};
-                            --}}
-
-                            var row_edit = 1;
-                            var row_delete = 1;
+                            var row_edit = {{Gate::forUser(auth('admin')->user())->check('admin.permission.edit') ? 1 : 0}};
+                            var row_delete = {{Gate::forUser(auth('admin')->user())->check('admin.permission.destroy') ? 1 :0}};
                             var str = '';
 
                             //下级菜单
@@ -155,9 +151,12 @@ $(function () {
                     @endif
                 </div>
 
+                @if(Gate::forUser(auth('admin')->user())->check('admin.permission.create'))
                 <div class="col-md-6 text-right">
                     <a href="{{$cid}}/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加权限 </a>
                 </div>
+                @endif
+
                 </div>
 
 		    </div>

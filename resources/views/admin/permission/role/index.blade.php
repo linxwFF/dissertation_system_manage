@@ -69,12 +69,8 @@ $(function () {
                         {
                             'targets': -1, "render": function (data, type, row) {
 
-                            {{--// var row_edit = {{Gate::forUser(auth('admin')->user())->check('admin.permission.edit') ? 1 : 0}};
-                            // var row_delete = {{Gate::forUser(auth('admin')->user())->check('admin.permission.destroy') ? 1 :0}};
-                            --}}
-
-                            var row_edit = 1;
-                            var row_delete = 1;
+                            var row_edit = {{Gate::forUser(auth('admin')->user())->check('admin.role.edit') ? 1 : 0}};
+                            var row_delete = {{Gate::forUser(auth('admin')->user())->check('admin.role.destroy') ? 1 :0}};
                             var str = '';
 
                             //编辑
@@ -132,9 +128,11 @@ $(function () {
 
                 </div>
 
+                @if(Gate::forUser(auth('admin')->user())->check('admin.role.create'))
                 <div class="col-md-6 text-right">
                     <a href="/admin/role/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加角色 </a>
                 </div>
+                @endif
                 </div>
 
 		    </div>

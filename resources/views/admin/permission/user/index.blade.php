@@ -57,9 +57,11 @@
 
                 </div>
 
+                @if(Gate::forUser(auth('admin')->user())->check('admin.user.create'))
                 <div class="col-md-9 text-right">
                     <a href="/admin/user/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加用户 </a>
                 </div>
+                @endif
                 </div>
 
 		    </div>
