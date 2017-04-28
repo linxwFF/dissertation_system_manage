@@ -28,7 +28,7 @@ class TeachBaseInfoSeeder extends Seeder
         $teach->identity_number = "1";
         $teach->identity_valid = "1";
         $teach->marriage_status_code = "1";
-        $teach->countrymen_code = "1";
+        $teach->conuntrymen_code = "1";
         $teach->health_status = "1";
         $teach->religion = "1";
         $teach->blood_type_code = "1";

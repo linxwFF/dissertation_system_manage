@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2017-04-24 18:26:16
+Date: 2017-04-28 17:46:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -60,7 +60,7 @@ CREATE TABLE `admin_permissions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_permissions
@@ -69,7 +69,7 @@ INSERT INTO `admin_permissions` VALUES ('1', 'admin.permission', '权限管理',
 INSERT INTO `admin_permissions` VALUES ('2', 'admin.permission.index', '权限列表', '', '1', '', '2016-05-21 10:08:04', '2016-05-21 10:08:04');
 INSERT INTO `admin_permissions` VALUES ('3', 'admin.permission.create', '权限添加', '', '1', '', '2016-05-21 10:08:18', '2016-05-21 10:08:18');
 INSERT INTO `admin_permissions` VALUES ('4', 'admin.permission.edit', '权限修改', '', '1', '', '2016-05-21 10:08:35', '2016-05-21 10:08:35');
-INSERT INTO `admin_permissions` VALUES ('5', 'admin.permission.destroy ', '权限删除', '', '1', '', '2016-05-21 10:09:57', '2016-05-21 10:09:57');
+INSERT INTO `admin_permissions` VALUES ('5', 'admin.permission.destroy', '权限删除', '', '1', '', '2016-05-21 10:09:57', '2016-05-21 10:09:57');
 INSERT INTO `admin_permissions` VALUES ('6', 'admin.role.index', '角色列表', '', '1', '', '2016-05-23 10:36:40', '2016-05-23 10:36:40');
 INSERT INTO `admin_permissions` VALUES ('7', 'admin.role.create', '角色添加', '', '1', '', '2016-05-23 10:37:07', '2016-05-23 10:37:07');
 INSERT INTO `admin_permissions` VALUES ('8', 'admin.role.edit', '角色修改', '', '1', '', '2016-05-23 10:37:22', '2016-05-23 10:37:22');
@@ -78,14 +78,15 @@ INSERT INTO `admin_permissions` VALUES ('10', 'admin.user.index', '用户管理'
 INSERT INTO `admin_permissions` VALUES ('11', 'admin.user.create', '用户添加', '', '1', '', '2016-05-23 10:39:21', '2016-06-22 13:49:29');
 INSERT INTO `admin_permissions` VALUES ('12', 'admin.user.edit', '用户编辑', '', '1', '', '2016-05-23 10:39:52', '2016-05-23 10:39:52');
 INSERT INTO `admin_permissions` VALUES ('13', 'admin.user.destroy', '用户删除', '', '1', '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
-INSERT INTO `admin_permissions` VALUES ('14', 'chooseTask.declare', '课题申报环节', '', '0', 'ti-receipt', '2016-05-23 10:40:33', '2016-05-23 10:40:36');
-INSERT INTO `admin_permissions` VALUES ('15', 'chooseTask.declare.taskIndex.index', '课题申报', '', '14', '', '2016-05-23 10:40:31', '2016-05-23 10:40:36');
-INSERT INTO `admin_permissions` VALUES ('16', 'chooseTask.declare.taskReview.index', '课题审核', '', '14', '', '2016-05-23 10:40:32', '2016-05-23 10:40:36');
-INSERT INTO `admin_permissions` VALUES ('17', 'chooseTask.declare.chooseTaskCollect.index', '选题情况汇总', '', '14', '', '2016-05-23 10:40:34', '2016-05-23 10:40:36');
-INSERT INTO `admin_permissions` VALUES ('18', 'chooseTask.declare.teachArrange.index', '指导教师安排', '', '14', '', '2016-05-23 10:40:35', '2016-05-23 10:40:36');
-INSERT INTO `admin_permissions` VALUES ('19', 'chooseTask.declare.taskCollect.index', '课题汇总', '', '14', '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
-INSERT INTO `admin_permissions` VALUES ('20', 'chooseTask.declare.particiPants.index', '课题参与人确定', '', '14', '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
-INSERT INTO `admin_permissions` VALUES ('21', 'chooseTask.declare.taskModifyApply.index', '课题修改申请审核', '', '14', '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('14', 'admin.user.extra_property', '请求用户扩展数据', '', '1', '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('15', 'chooseTask.declare', '课题申报环节', '', '0', 'ti-receipt', '2016-05-23 10:40:33', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('16', 'chooseTask.declare.taskIndex.index', '课题申报', '', '15', '', '2016-05-23 10:40:31', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('17', 'chooseTask.declare.taskReview.index', '课题审核', '', '15', '', '2016-05-23 10:40:32', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('18', 'chooseTask.declare.chooseTaskCollect.index', '选题情况汇总', '', '15', '', '2016-05-23 10:40:34', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('19', 'chooseTask.declare.teachArrange.index', '指导教师安排', '', '15', '', '2016-05-23 10:40:35', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('20', 'chooseTask.declare.taskCollect.index', '课题汇总', '', '15', '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('21', 'chooseTask.declare.particiPants.index', '课题参与人确定', '', '15', '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('22', 'chooseTask.declare.taskModifyApply.index', '课题修改申请审核', '', '15', '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
 
 -- ----------------------------
 -- Table structure for admin_permission_role
@@ -100,36 +101,24 @@ CREATE TABLE `admin_permission_role` (
 -- Records of admin_permission_role
 -- ----------------------------
 INSERT INTO `admin_permission_role` VALUES ('6', '1');
-INSERT INTO `admin_permission_role` VALUES ('5', '1');
 INSERT INTO `admin_permission_role` VALUES ('4', '1');
+INSERT INTO `admin_permission_role` VALUES ('5', '1');
 INSERT INTO `admin_permission_role` VALUES ('3', '1');
 INSERT INTO `admin_permission_role` VALUES ('2', '1');
 INSERT INTO `admin_permission_role` VALUES ('7', '1');
-INSERT INTO `admin_permission_role` VALUES ('8', '1');
 INSERT INTO `admin_permission_role` VALUES ('9', '1');
+INSERT INTO `admin_permission_role` VALUES ('8', '1');
 INSERT INTO `admin_permission_role` VALUES ('10', '1');
 INSERT INTO `admin_permission_role` VALUES ('11', '1');
 INSERT INTO `admin_permission_role` VALUES ('12', '1');
 INSERT INTO `admin_permission_role` VALUES ('13', '1');
-INSERT INTO `admin_permission_role` VALUES ('19', '1');
-INSERT INTO `admin_permission_role` VALUES ('18', '1');
-INSERT INTO `admin_permission_role` VALUES ('17', '1');
-INSERT INTO `admin_permission_role` VALUES ('16', '1');
-INSERT INTO `admin_permission_role` VALUES ('15', '1');
-INSERT INTO `admin_permission_role` VALUES ('20', '1');
-INSERT INTO `admin_permission_role` VALUES ('21', '1');
+INSERT INTO `admin_permission_role` VALUES ('16', '2');
 INSERT INTO `admin_permission_role` VALUES ('8', '2');
-INSERT INTO `admin_permission_role` VALUES ('7', '2');
+INSERT INTO `admin_permission_role` VALUES ('14', '1');
 INSERT INTO `admin_permission_role` VALUES ('6', '2');
-INSERT INTO `admin_permission_role` VALUES ('5', '2');
-INSERT INTO `admin_permission_role` VALUES ('4', '2');
-INSERT INTO `admin_permission_role` VALUES ('3', '2');
 INSERT INTO `admin_permission_role` VALUES ('2', '2');
-INSERT INTO `admin_permission_role` VALUES ('9', '2');
-INSERT INTO `admin_permission_role` VALUES ('15', '2');
-INSERT INTO `admin_permission_role` VALUES ('11', '2');
-INSERT INTO `admin_permission_role` VALUES ('12', '2');
-INSERT INTO `admin_permission_role` VALUES ('13', '2');
+INSERT INTO `admin_permission_role` VALUES ('14', '2');
+INSERT INTO `admin_permission_role` VALUES ('10', '2');
 
 -- ----------------------------
 -- Table structure for admin_roles
@@ -143,7 +132,7 @@ CREATE TABLE `admin_roles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_roles
@@ -183,13 +172,13 @@ CREATE TABLE `admin_users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `admin_users_email_unique` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_users
 -- ----------------------------
-INSERT INTO `admin_users` VALUES ('1', '1', 'App\\Models\\TeachBaseInfo', '1', 'teach', 'teach@teach.com', '$2y$10$kZMOrFg2b9CT9MEqPOGmgOhwckhjQJ885..GuZL7Xsdm/AM29uu4a', 'yl17P0QCuvTNa2w8UnEDUDMtm29IxF6TctKeFBnCxnFss745Bv2UWRknbCZH', '2017-04-17 12:03:01', '2017-04-17 12:03:01');
-INSERT INTO `admin_users` VALUES ('2', '1', 'App\\Models\\StudentBaseInfo', '2', 'student', 'student@student.com', '$2y$10$IY4pnbwlFXrIP9lAWnaLsugcfUZ4e/rB8IOsG7jBoF7s3f/EWBJCu', 'yermpQLe2Ede7fr1jeUdLpUPfbIi3cnmXLGD98rAuDse49blNjDQH0BUEFyE', '2017-04-17 12:03:01', '2017-04-24 10:25:07');
+INSERT INTO `admin_users` VALUES ('2', '1', 'App\\Models\\StudentBaseInfo', '2', 'student', 'student@student.com', '$2y$10$VFCUmel2cPdgBa6.JkbjB.goMj8YB5VhVovzsy9vWwe3j4sfSVuiu', 'iRJNAeMFGtCNHao6WTKCl69XTrWY98sUctSTaLYIPTso0QEXctaKbQPt1RGq', '2017-04-24 13:41:20', '2017-04-24 13:41:20');
+INSERT INTO `admin_users` VALUES ('1', '1', 'App\\Models\\TeachBaseInfo', '1', 'teach', 'teach@teach.com', '$2y$10$dlKIkWP3gd6/bI7NC8GuPOpX0KVjqA0Ff1rupx792ZOYA2Z7WJKQG', '2iv6OVnKjNPtBI9Ve2ikjYig6MyrJsSYhplMKYFSzTOmYW6l0aw3BrDNZrdn', '2017-04-24 13:41:20', '2017-04-24 13:41:20');
 
 -- ----------------------------
 -- Table structure for answer_ppt
@@ -529,7 +518,7 @@ CREATE TABLE `student_base_info` (
   `photo` varchar(255) DEFAULT NULL COMMENT '照片',
   `identity_valid` varchar(17) DEFAULT NULL COMMENT '身份证件有效期',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student_base_info
@@ -693,7 +682,7 @@ CREATE TABLE `teach_base_info` (
   `record_text` text COMMENT '档案文本',
   `current_state_code` varchar(2) DEFAULT NULL COMMENT '当前状态码',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of teach_base_info

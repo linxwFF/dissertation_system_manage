@@ -26,12 +26,12 @@ class StudentBaseInfoSeeder extends Seeder
         $student->nationility_code = "2";
         $student->identity_type = "2";
         $student->identity_number = "2";
-        $student->marriage_states_code = "2";
+        $student->marriage_status_code = "2";
         $student->conuntrymen_code = "2";
         $student->politics_status = "2";
         $student->health_status = "2";
         $student->religion = "2";
-        $student->blood_type = "2";
+        $student->blood_type_code = "2";
         $student->photo = "2";
         $student->identity_valid = "2";
         $student->save();
