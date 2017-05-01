@@ -33,11 +33,18 @@ class GetMenu
         $data['top'] = [];  //顶级目录
         //查找并拼接出地址的别名值
         $path_arr = explode('/', \URL::getRequest()->path());
+
         if (isset($path_arr[1])) {
-            $urlPath = $path_arr[0] . '.' . $path_arr[1] . '.index';
+            if(isset($path_arr[2])){
+                $urlPath = $path_arr[0] . '.' . $path_arr[1] . '.' . $path_arr[2]. '.index';
+            }else{
+                $urlPath = $path_arr[0] . '.' . $path_arr[1] . '.index';
+            }
         } else {
             $urlPath = $path_arr[0] . '.index';
         }
+
+        // dd($urlPath);
         //查找出所有的地址,父节点
         // $table = Cache::store('file')->rememberForever('menus', function () {
         //     return \App\Models\Admin\Permission::where('name', 'LIKE', '%index')
@@ -51,7 +58,7 @@ class GetMenu
         foreach ($table as $v) {
             // echo "$v->name".\Gate::forUser(auth('admin')->user())->check($v->name) ."<br/>";
             if ($v->cid == 0 || \Gate::forUser(auth('admin')->user())->check($v->name)) {
-
+                // echo $v->name."-----".$urlPath."<br/>";
                 if ($v->name == $urlPath) {
                     $openArr[] = $v->id;
                     $openArr[] = $v->cid;
