@@ -34,17 +34,14 @@ class GetMenu
         //查找并拼接出地址的别名值
         $path_arr = explode('/', \URL::getRequest()->path());
 
-        if (isset($path_arr[1])) {
-            if(isset($path_arr[2])){
-                $urlPath = $path_arr[0] . '.' . $path_arr[1] . '.' . $path_arr[2]. '.index';
-            }else{
-                $urlPath = $path_arr[0] . '.' . $path_arr[1] . '.index';
-            }
-        } else {
+        if(isset($path_arr[1]) && isset($path_arr[3])){
+            $urlPath = $path_arr[0] . '.' . $path_arr[1] . '.' . $path_arr[2]. '.index';
+        } else if(isset($path_arr[1]) && !isset($path_arr[3])){
+            $urlPath = $path_arr[0] . '.' . $path_arr[1] . '.index';
+        } else{
             $urlPath = $path_arr[0] . '.index';
         }
 
-        // dd($urlPath);
         //查找出所有的地址,父节点
         // $table = Cache::store('file')->rememberForever('menus', function () {
         //     return \App\Models\Admin\Permission::where('name', 'LIKE', '%index')
