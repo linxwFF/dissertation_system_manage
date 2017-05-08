@@ -17,13 +17,13 @@ Route::get('/', function () {
 });
 
 //错误页面跳转
-require( __DIR__ . '\errors\errors.php');
+require( __DIR__ . '/errors/errors.php');
 
 //前后台登录验证
-require( __DIR__ . '\auth\auth.php');
+require( __DIR__ . '/auth/auth.php');
 
 //权限管理
-require( __DIR__ . '\permission\permission.php');
+require( __DIR__ . '/permission/permission.php');
 
 //课题申报环节
-require( __DIR__ . '\chooseTaskDeclare\subject.php');
+require( __DIR__ . '/chooseTaskDeclare/subject.php');

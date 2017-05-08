@@ -70,7 +70,7 @@ $(function () {
 
                             //编辑
                             if (row_edit) {
-                                str += '<a style="margin:3px;" href="/admin/user/' + row['id'] + '/edit" class="btn-xs text-success "><i class="ti-pencil"></i> 编辑</a>';
+                                str += '<a style="margin:3px;" href="' + row['id'] + '/edit" class="btn-xs text-success "><i class="ti-pencil"></i> 编辑</a>';
                             }
 
                             //删除
