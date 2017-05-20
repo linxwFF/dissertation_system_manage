@@ -111,7 +111,7 @@ $(function () {
 @endsection
 
 @section('content')
-        @section('page_title','Page Title')  {{--页面标题--}}
+        @section('page_title','角色列表')  {{--页面标题--}}
         @include('admin.layout.bodyHeader')  {{--主页面头--}}
         <!--Page content-->
         <!--===================================================-->

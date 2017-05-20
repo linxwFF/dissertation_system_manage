@@ -45,4 +45,10 @@ class AdminUser extends Authenticatable
         if (!$permission) return false;
         return true;
     }
+
+    //用户对应的角色  一个用户只有一种角色
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Admin\Role');
+    }
 }

@@ -23,8 +23,6 @@ class HomeController extends Controller
 
     public function getMenuTest(Request $request)
     {
-        // dd(Gate::forUser(auth('admin')->user())->check('admin.permission'));
-        dd($request->get('comData_menu'));
-        dd(Gate::forUser(auth('admin')->user()));
+        dd(auth('admin')->user()->role->toArray()['name']);
     }
 }

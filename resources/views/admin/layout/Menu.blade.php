@@ -19,13 +19,13 @@
                                             <span class="pull-right dropdown-toggle">
                                                 <i class="dropdown-caret"></i>
                                             </span>
-                                <p class="mnp-name">Aaron Chavez</p>
-                                <span class="mnp-desc">aaron.cha@themeon.net</span>
+                                <p class="mnp-name">登录用户 : {{ auth('admin')->user()->name }}</p>
+                                <span class="mnp-desc">基本信息</span>
                             </a>
                         </div>
                         <div id="profile-nav" class="collapse list-group bg-trans">
                             <a href="#" class="list-group-item">
-                                <i class="ti-medall icon-lg icon-fw"></i> Link 1
+                                <i class="ti-medall icon-lg icon-fw"></i> 用户角色 : {{ auth('admin')->user()->role->toArray()['name'] }}
                             </a>
 
                         </div>

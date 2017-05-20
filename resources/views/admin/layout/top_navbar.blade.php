@@ -53,10 +53,10 @@
 
                         <!-- Dropdown heading  -->
                         <div class="pad-all bord-btm">
-                            <p class="text-main mar-btm"><span class="text-bold">750GB</span> of 1,000GB Used</p>
+                            <p class="text-main mar-btm"><span class="text-bold">1</span> / 10 论文进度</p>
                             <div class="progress progress-sm">
-                                <div class="progress-bar" style="width: 70%;">
-                                    <span class="sr-only">70%</span>
+                                <div class="progress-bar" style="width: 10%;">
+                                    <span class="sr-only">10%</span>
                                 </div>
                             </div>
                         </div>
@@ -66,19 +66,14 @@
                         <ul class="head-list">
                             <li>
                                 <a href="#">
-                                    <i class="ti-user icon-fw icon-lg"></i> Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
                                     <span class="badge badge-danger pull-right">9</span>
-                                    <i class="ti-email icon-fw icon-lg"></i> Messages
+                                    <i class="ti-email icon-fw icon-lg"></i> 未读信息
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <span class="label label-success pull-right">New</span>
-                                    <i class="ti-settings icon-fw icon-lg"></i> Settings
+                                    <i class="ti-settings icon-fw icon-lg"></i> 设置
                                 </a>
                             </li>
                         </ul>

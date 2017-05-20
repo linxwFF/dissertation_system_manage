@@ -21,9 +21,9 @@ class AuthenticateAdmin
      */
     public function handle($request, Closure $next)
     {
-        // if (Auth::guard('admin')->user()->id === 1) {
-        //     return $next($request);
-        // }
+        if (Auth::guard('admin')->user()->id === 1) {
+            return $next($request);
+        }
 
         $previousUrl = URL::previous();
         //路由名字，以admin开头

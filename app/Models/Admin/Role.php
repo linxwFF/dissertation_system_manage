@@ -19,5 +19,10 @@ class Role extends Model
         return $this->permissions()->save($permission);
     }
 
+    //角色对于的用户  一个角色有多个用户
+    public function adminUser()
+    {
+        return $this->hasMany('App\Models\Admin\AdminUer');
+    }
 
 }

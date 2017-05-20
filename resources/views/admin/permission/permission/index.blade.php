@@ -129,7 +129,7 @@ $(function () {
 @endsection
 
 @section('content')
-        @section('page_title','Page Title')  {{--页面标题--}}
+        @section('page_title','权限列表')  {{--页面标题--}}
         @include('admin.layout.bodyHeader')  {{--主页面头--}}
         <!--Page content-->
         <!--===================================================-->
@@ -143,7 +143,9 @@ $(function () {
                 <div class="row page-title-row" style="margin:5px;">
                 <div class="col-md-6">
                     @if($cid == 0 )
-                    <span style="margin:3px;" id="cid" attr="{{$cid}}" class="btn-flat text-info"> 顶级菜单</span>
+                    <button type="button"  id="cid" attr="{{$cid}}" class="btn btn-warning btn-md animation-shake reloadBtn" disabled="true">
+                        顶级菜单
+                    </button>
                     @else
                     <a style="margin:3px;" href="permission" id="cid" attr="{{$cid}}"
                        class="btn btn-warning btn-md animation-shake reloadBtn"><i class="ti-control-backward"></i> 返回顶级菜单
@@ -156,9 +158,7 @@ $(function () {
                     <a href="{{$cid}}/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加权限 </a>
                 </div>
                 @endif
-
                 </div>
-
 		    </div>
 
 		    <div class="panel-body">

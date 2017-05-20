@@ -9,7 +9,7 @@
     <!--Searchbox-->
     <div class="searchbox">
         <div class="input-group custom-search-form">
-            <input type="text" class="form-control" placeholder="Search..">
+            <input type="text" class="form-control" placeholder="搜索..">
             <span class="input-group-btn">
                 <button class="text-muted" type="button"><i class="demo-pli-magnifi-glass"></i></button>
             </span>
