@@ -21,65 +21,38 @@ $(document).ready(function(){
     $('#add_parent').click(function(){
         console.log('添加大标题');
 
+        var lastformId = $('form').size(); //创建新的from的ID
+        console.log('创建新的from的ID'+lastformId);
+
         var html_item = '';
-        html_item += '<div class="col-md-12">';
-        html_item += '<form>';
-        html_item += '    <input type="hidden" value="0" name="pid">';
+        html_item += '<div class="col-md-12" id="div'+lastformId+'">';
+        html_item += '<form id="'+lastformId+'">';
+        html_item += '    <input type="hidden" value="0" name="parent_id">';
         html_item += '    <div class="form-group">';
-        html_item += '        <label for="tag" class="col-md-1 control-label">栏目标识</label>';
-        html_item += '        <div class="col-md-2">';
-        html_item += '            <input type="text" class="form-control" name="label" id="tag" value="project_background" autofocus>';
-        html_item += '        </div>';
 
         html_item += '        <label for="tag" class="col-md-1 control-label">栏目名称</label>';
         html_item += '        <div class="col-md-2">';
-        html_item += '            <input type="text" class="form-control" name="name" id="tag" value="项目背景" autofocus>';
+        html_item += '            <input type="text" class="form-control" name="title" id="tag" value="" autofocus>';
         html_item += '        </div>';
 
-        html_item += '        <label for="tag" class="col-md-1 control-label">栏目内容</label>';
-        html_item += '        <div class="col-md-2">';
-        html_item += '            <textarea name="content" class="form-control" rows="2">我是内容，我是内容，我是内容</textarea>';
-        html_item += '        </div>';
+        html_item += '         <label for="tag" class="col-md-1 control-label">排序</label>';
+        html_item += '         <div class="col-md-2">';
+        html_item += '             <input type="number" class="form-control" name="sort_order" id="tag" value="" autofocus>';
+        html_item += '         </div>';
         html_item += '    </div>';
         html_item += '</form>';
 
         html_item += '    <div class="col-md-3">';
-        html_item += '    <button class="btn btn-primary btn-md">';
-        html_item += '        提交';
+        html_item += '    <button class="btn btn-primary btn-md" onclick="sumbit_form('+lastformId+')" >';
+        html_item += '        添加';
         html_item += '    </button>';
 
-        html_item += '    <button class="btn btn-primary btn-md">';
-        html_item += '        增加子栏目';
-        html_item += '    </button>';
-
-        html_item += '    <button class="btn btn-primary btn-md">';
-        html_item += '        修改栏目';
-        html_item += '    </button>';
-
-        html_item += '    <button class="btn btn-primary btn-md">';
-        html_item += '        删除栏目';
-        html_item += '    </button>';
         html_item += '    </div>';
         html_item += '</div>';
 
         $("#item").append(html_item);
 
     });
-
-    $('#sumbit').click(function(){
-        $.ajax({
-            type:'post',
-            url: '/column/subject/add',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
-            success:function(data){
-                console.log(data);
-            }
-        });
-    });
-
-
 });
 </script>
 @endsection
@@ -105,7 +78,6 @@ $(document).ready(function(){
 
             <div class="panel-body" id="item">
                 @include('admin.column._form')
-
             </div>
 		</div>
 

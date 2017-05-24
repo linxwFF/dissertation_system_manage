@@ -32,6 +32,6 @@ class CreateWordOfCategryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wordOfCategry');
+        Schema::dropIfExists('word_of_categry');
     }
 }
