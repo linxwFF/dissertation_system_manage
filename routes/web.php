@@ -27,3 +27,6 @@ require( __DIR__ . '/permission/permission.php');
 
 //课题申报环节
 require( __DIR__ . '/chooseTaskDeclare/subject.php');
+
+//栏目管理
+require( __DIR__ . '/column/subject.php');

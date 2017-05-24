@@ -32,11 +32,11 @@ class AuthServiceProvider extends ServiceProvider
         }
 
         //id为1的超级管理员,拥有全部的用户权限
-        // $gate->before(function ($user, $ability) {
-        //     if ($user->id === 1) {
-        //         return true;
-        //     }
-        // });
+        $gate->before(function ($user, $ability) {
+            if ($user->id === 1) {
+                return true;
+            }
+        });
 
         $this->registerPolicies($gate);
 
