@@ -35,6 +35,7 @@ class SubjectController extends Controller
     //添加新的栏目
     public function addCategory(Request $request)
     {
+        // dd($request->all());
         $category = new Category();
         foreach (array_keys($this->fields) as $field) {
             $category->$field = $request->get($field);

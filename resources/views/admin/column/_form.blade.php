@@ -17,7 +17,7 @@
 </form>
 
     <div class="col-md-3">
-    <button class="btn btn-primary btn-md" onclick="sumbit_form(1)" disabled="true">
+    <button class="btn btn-primary btn-md" onclick="add_submit(1)" disabled="true">
         提交
     </button>
 
@@ -34,11 +34,11 @@
     </button>
     </div>
 </div> -->
-
+<?php $count = 1; ?>
 @foreach ($data as $k=>$v)
 
-<div class="col-md-12" id="div{{ $v['top']['id'] }}">
-<form id="{{ $v['top']['id'] }}">
+<div class="col-md-12" id="div{{ $count }}">
+<form id="{{ $count }}">
     <input type="hidden" value="{{ $v['top']['parent_id']}}" name="parent_id">
     <div class="form-group">
 
@@ -56,7 +56,7 @@
 </form>
 
     <div class="col-md-3">
-    <button class="btn btn-primary btn-md" onclick="add_sub({{ $v['top']['id']}})">
+    <button class="btn btn-primary btn-md" onclick="add_sub({{ $v['top']['id']}},{{ $count }})">
         增加子栏目
     </button>
 
@@ -65,7 +65,7 @@
     </button>
 
     @if(!isset($v['sub']))  {{--存在子栏目时不允许删除--}}
-    <button class="btn btn-primary btn-md">
+    <button class="btn btn-primary btn-md" onclick="delete_submit({{$v['top']['id']}})">
         删除栏目
     </button>
     @endif
@@ -76,7 +76,7 @@
     @foreach($v['sub'] as $kk=>$vv)
     <div class="col-md-10">
     <div class="col-md-2">+------</div>
-    <form id="{{$vv['id']}}">
+    <form id="{{ $count }}">
         <input type="hidden" value="{{$vv['parent_id']}}" name="parent_id">
         <div class="form-group">
 
@@ -110,11 +110,18 @@
     @endforeach
 @endif
 
+<?php $count++; ?>
 @endforeach
+
+
+{{--扩展的JS--}}
+@section('extendJs')
 
 <script>
 //添加表单
-function sumbit_form(id){
+function add_submit(id){
+
+    console.log(id);
 
     $.ajax({
         type:'post',
@@ -125,14 +132,13 @@ function sumbit_form(id){
         },
         success:function(data){
             $('#'+ id +" input[class='form-control']").attr('disabled',true);
-            $('button[onclick="sumbit_form('+id+')"]').attr('disabled',true);
-            window.location.reload();
+            $('button[onclick="add_submit('+id+')"]').attr('disabled',true);
+            // window.location.reload();
         }
     });
 
 }
-
-
+//更新事件
 function update(id){
 
     $('#'+ id +" input[class='form-control']").removeAttr('disabled');
@@ -142,7 +148,7 @@ function update(id){
     console.log(id);
 
 }
-
+//更新表单
 function update_submit(id){
 
     $.ajax({
@@ -154,12 +160,12 @@ function update_submit(id){
         },
         success:function(data){
             $('#'+ id +" input[class='form-control']").attr('disabled',true);
-            $('button[onclick="sumbit_form('+id+')"]').attr('disabled',true);
+            $('button[onclick="add_submit('+id+')"]').attr('disabled',true);
             window.location.reload();
         }
     });
 }
-
+//删除表单
 function delete_submit(id){
     $.ajax({
         type:'post',
@@ -169,13 +175,48 @@ function delete_submit(id){
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         },
         success:function(data){
-            window.location.reload(); 
+            window.location.reload();
         }
     });
 }
+//添加大标题
+function add_parent(){
+    console.log('添加大标题');
 
+    var lastformId = $('form').size(); //创建新的from的ID
+    console.log('创建新的from的ID'+lastformId);
 
-function add_sub(id){
+    var html_item = '';
+    html_item += '<div class="col-md-12" id="div'+lastformId+'">';
+    html_item += '<form id="'+lastformId+'">';
+    html_item += '    <input type="hidden" value="0" name="parent_id">';
+    html_item += '    <div class="form-group">';
+
+    html_item += '        <label for="tag" class="col-md-1 control-label">栏目名称</label>';
+    html_item += '        <div class="col-md-2">';
+    html_item += '            <input type="text" class="form-control" name="title" value="" autofocus>';
+    html_item += '        </div>';
+
+    html_item += '         <label for="tag" class="col-md-1 control-label">排序</label>';
+    html_item += '         <div class="col-md-2">';
+    html_item += '             <input type="number" class="form-control" name="sort_order" value="" autofocus>';
+    html_item += '         </div>';
+    html_item += '    </div>';
+    html_item += '</form>';
+
+    html_item += '    <div class="col-md-3">';
+    html_item += '    <button class="btn btn-primary btn-md" onclick="add_submit('+lastformId+')" >';
+    html_item += '        添加';
+    html_item += '    </button>';
+
+    html_item += '    </div>';
+    html_item += '</div>';
+
+    $("#item").append(html_item);
+
+}
+//添加子标题
+function add_sub(id, count){
 
     var lastformId = $('form').size();      //创建新的from的ID
 
@@ -202,14 +243,15 @@ function add_sub(id){
     html_item += '</form>';
 
     html_item += '    <div class="col-md-3">';
-    html_item += '    <button class="btn btn btn-danger btn-md" onclick="sumbit_form('+lastformId+')" >';
+    html_item += '    <button class="btn btn btn-danger btn-md" onclick="add_submit('+lastformId+')" >';
     html_item += '        添加';
     html_item += '    </button>';
 
     html_item += '    </div>';
     html_item += '</div>';
 
-    $('#div'+ id).append(html_item);
+    $('#div'+ count).append(html_item);
 
 }
 </script>
+@endsection
