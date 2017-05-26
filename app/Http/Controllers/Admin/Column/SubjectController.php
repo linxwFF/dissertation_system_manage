@@ -5,9 +5,17 @@ namespace App\Http\Controllers\Admin\Column;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Repositories\Eloquent\SubjectRepository;
+use Response;
 
 class SubjectController extends Controller
 {
+    protected $Pepo;
+
+    public function __construct(SubjectRepository $Pepo)   //通过构造器注入
+    {
+        $this->Pepo = $Pepo;
+    }
 
     protected $fields = [
         'parent_id'  => '',
@@ -18,7 +26,9 @@ class SubjectController extends Controller
 
     public function index()
     {
-        $data = [];
+        $data = [
+            'data' => [],
+        ];
         $Category = Category::orderBy('sort_order')->get();
         // dd($Category);
         foreach($Category as $k=>$v){
@@ -35,26 +45,25 @@ class SubjectController extends Controller
     //添加新的栏目
     public function addCategory(Request $request)
     {
-        // dd($request->all());
-        $category = new Category();
-        foreach (array_keys($this->fields) as $field) {
-            $category->$field = $request->get($field);
-        }
-
-        $category->save();
-        echo "ok";
+        $input = $request->all();
+        $result = $this->Pepo->store_one($input);
+        return Response::json($result['data'], $result['status']);
     }
 
     //修改栏目
     public function editCategory(Request $request, $id)
     {
-        $category = Category::find((int)$id);
-        foreach (array_keys($this->fields) as $field) {
-            $category->$field = $request->get($field);
+        $input = $request->all();
+        if(!empty($id) && $id>0){
+            $input['id'] = $id;
+            $result = $this->Pepo->update_one($input);
+        }else{
+            $result = [
+                'status' => '404',
+                'data' => ['message' => '更新失败！，没有找到该项目']
+            ];
         }
-        $category->save();
-
-        echo "ok";
+        return Response::json($result['data'], $result['status']);
     }
 
     //删除栏目
@@ -62,13 +71,14 @@ class SubjectController extends Controller
     {
         $child = Category::where('parent_id', $id)->first();
         if ($child) {
-            echo "有子项目不运行删除";
+            return [
+              'status' => '403',
+              'data' => ['message' => '请先删除子项目!']
+            ];
+        }else{
+            $result = $this->Pepo->destroy_one($id);
         }
 
-        $tag = Category::find((int)$id);
-        $tag->delete();
-
-        echo "delete ok";
-
+        return Response::json($result['data'], $result['status']);
     }
 }

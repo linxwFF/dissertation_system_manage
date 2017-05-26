@@ -1,44 +1,8 @@
-<!-- <div class="col-md-12" id="div1">
-<form id="1">
-    <input type="hidden" value="0" name="parent_id">
-    <div class="form-group">
-
-        <label for="tag" class="col-md-1 control-label">栏目名称</label>
-        <div class="col-md-2">
-            <input disabled="true" type="text" class="form-control" name="title" id="tag" value="项目背景" autofocus >
-        </div>
-
-        <label for="tag" class="col-md-1 control-label">排序</label>
-        <div class="col-md-2">
-            <input disabled="true" type="number" class="form-control" name="sort_order" id="tag" value="1" autofocus >
-        </div>
-
-    </div>
-</form>
-
-    <div class="col-md-3">
-    <button class="btn btn-primary btn-md" onclick="add_submit(1)" disabled="true">
-        提交
-    </button>
-
-    <button class="btn btn-primary btn-md" onclick="add_sub(1)">
-        增加子栏目
-    </button>
-
-    <button class="btn btn-primary btn-md" onclick="update(1)">
-        修改栏目
-    </button>
-
-    <button class="btn btn-primary btn-md">
-        删除栏目
-    </button>
-    </div>
-</div> -->
 <?php $count = 1; ?>
 @foreach ($data as $k=>$v)
 
-<div class="col-md-12" id="div{{ $count }}">
-<form id="{{ $count }}">
+<div class="col-md-12" id="parent{{ $count }}">
+<form id="{{ $v['top']['id'] }}">
     <input type="hidden" value="{{ $v['top']['parent_id']}}" name="parent_id">
     <div class="form-group">
 
@@ -60,8 +24,12 @@
         增加子栏目
     </button>
 
-    <button class="btn btn-primary btn-md" onclick="update({{ $v['top']['id']}})">
+    <button class="btn btn-primary btn-md" onclick="update_parent({{ $v['top']['id'] }}, {{ $count }})">
         修改栏目
+    </button>
+
+    <button class="btn btn btn-success btn-md hidden" onclick="update_parent_submit({{ $v['top']['id'] }}, {{ $count }})">
+        提交
     </button>
 
     @if(!isset($v['sub']))  {{--存在子栏目时不允许删除--}}
@@ -74,9 +42,9 @@
 
 @if(isset($v['sub']))
     @foreach($v['sub'] as $kk=>$vv)
-    <div class="col-md-10">
-    <div class="col-md-2">+------</div>
-    <form id="{{ $count }}">
+    <div class="col-md-10" id="sub{{ $vv['id'] }}">
+    <div class="col-md-2">|-------------</div>
+    <form id="{{ $vv['id'] }}">
         <input type="hidden" value="{{$vv['parent_id']}}" name="parent_id">
         <div class="form-group">
 
@@ -94,11 +62,11 @@
 
         <div class="col-md-3">
 
-        <button class="btn btn btn-success btn-md" onclick="update({{$vv['id']}})">
+        <button class="btn btn btn-success btn-md" onclick="update_sub({{$vv['id']}})">
             修改栏目
         </button>
 
-        <button class="btn btn btn-success btn-md hidden" onclick="update_submit({{$vv['id']}})">
+        <button class="btn btn btn-success btn-md hidden" onclick="update_sub_submit({{$vv['id']}})">
             提交
         </button>
 
@@ -116,6 +84,8 @@
 
 {{--扩展的JS--}}
 @section('extendJs')
+<!--Layer -->
+<script src="{{asset('back/plugins/layer/layer.js')}}"></script>
 
 <script>
 //添加表单
@@ -133,23 +103,34 @@ function add_submit(id){
         success:function(data){
             $('#'+ id +" input[class='form-control']").attr('disabled',true);
             $('button[onclick="add_submit('+id+')"]').attr('disabled',true);
-            // window.location.reload();
+            window.location.reload();
         }
     });
 
 }
-//更新事件
-function update(id){
+//更新事件_大题
+function update_parent(id, count){
 
-    $('#'+ id +" input[class='form-control']").removeAttr('disabled');
-    $('button[onclick="update('+id+')"]').addClass('hidden');
-    $('button[onclick="update_submit('+id+')"]').removeClass('hidden');
+    $('#parent'+ count +" input[class='form-control']").removeAttr('disabled');
+    $('button[onclick="update_parent('+id+', '+count+')"]').addClass('hidden');   //隐藏     修改栏目
+    $('button[onclick="update_parent_submit('+id+', '+count+')"]').removeClass('hidden'); //显示     //提交
 
-    console.log(id);
+    console.log("修改的ID："+id);
 
 }
-//更新表单
-function update_submit(id){
+//更新事件_子题
+function update_sub(id){
+
+    $('#sub'+ id +" input[class='form-control']").removeAttr('disabled');
+    $('button[onclick="update_sub('+id+')"]').addClass('hidden');   //隐藏
+    $('button[onclick="update_sub_submit('+id+')"]').removeClass('hidden'); //显示
+
+    console.log("修改的ID："+id);
+
+}
+
+//更新表单_大题
+function update_parent_submit(id,count){
 
     $.ajax({
         type:'post',
@@ -159,12 +140,32 @@ function update_submit(id){
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         },
         success:function(data){
-            $('#'+ id +" input[class='form-control']").attr('disabled',true);
+            $('#parent'+ count +" input[class='form-control']").attr('disabled',true);
             $('button[onclick="add_submit('+id+')"]').attr('disabled',true);
             window.location.reload();
         }
     });
 }
+
+//更新表单_子题
+function update_sub_submit(id){
+
+    $.ajax({
+        type:'post',
+        url: '/column/subject/edit/'+id,
+        data: $('#'+ id).serialize(),
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        success:function(data){
+            $('#sub'+ id +" input[class='form-control']").attr('disabled',true);
+            $('button[onclick="add_submit('+id+')"]').attr('disabled',true);
+            window.location.reload();
+        }
+    });
+}
+
+
 //删除表单
 function delete_submit(id){
     $.ajax({
@@ -187,7 +188,7 @@ function add_parent(){
     console.log('创建新的from的ID'+lastformId);
 
     var html_item = '';
-    html_item += '<div class="col-md-12" id="div'+lastformId+'">';
+    html_item += '<div class="col-md-12" id="parent'+lastformId+'">';
     html_item += '<form id="'+lastformId+'">';
     html_item += '    <input type="hidden" value="0" name="parent_id">';
     html_item += '    <div class="form-group">';
@@ -224,8 +225,8 @@ function add_sub(id, count){
     console.log('对应的父节点ID：'+id);
 
     var html_item = '';
-    html_item += '<div class="col-md-10">';
-    html_item += '<div class="col-md-2">+------</div>'
+    html_item += '<div class="col-md-10" id="sub'+id+'">';
+    html_item += '<div class="col-md-2">|-------------</div>'
     html_item += '<form id="'+lastformId+'">';
     html_item += '    <input type="hidden" value="'+ id +'" name="parent_id">';
     html_item += '    <div class="form-group">';
@@ -250,7 +251,7 @@ function add_sub(id, count){
     html_item += '    </div>';
     html_item += '</div>';
 
-    $('#div'+ count).append(html_item);
+    $('#parent'+ count).append(html_item);
 
 }
 </script>
