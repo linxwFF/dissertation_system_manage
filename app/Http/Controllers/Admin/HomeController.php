@@ -18,7 +18,12 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.dashboard');
+        $role = auth('admin')->user()->role_id;
+        if($role == 1){
+            return view('admin.Tea_dashboard');
+        }else if($role == 2){
+            return view('admin.Stu_dashboard');
+        }
     }
 
     public function getMenuTest(Request $request)

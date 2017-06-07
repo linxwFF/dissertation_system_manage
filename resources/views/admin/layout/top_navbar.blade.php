@@ -4,7 +4,7 @@
         <!--Brand logo & name-->
         <!--================================-->
         <div class="navbar-header">
-            <a href="index.html" class="navbar-brand">
+            <a href="{{route('admin.home')}}" class="navbar-brand">
                 <img src="{{asset('back/img/logo.png')}}" alt="Nifty Logo" class="brand-icon">
                 <div class="brand-title">
                     <span class="brand-text">云校园 - <span style="font-size:12px">协同办公平台</span></span>

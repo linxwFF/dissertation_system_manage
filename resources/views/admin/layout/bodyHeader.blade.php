@@ -7,6 +7,7 @@
     </h1>
 
     <!--Searchbox-->
+    {{--
     <div class="searchbox">
         <div class="input-group custom-search-form">
             <input type="text" class="form-control" placeholder="搜索..">
@@ -15,6 +16,8 @@
             </span>
         </div>
     </div>
+    --}}
+    
 </div>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--End page title-->
