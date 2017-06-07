@@ -10,7 +10,7 @@
 <div class="modal-body">
     <p class="lead">
         <i class="fa fa-question-circle fa-lg"></i>
-        确认要删除这个权限吗?
+        确认要删除这个项目吗?
     </p>
 </div>
 <div class="modal-footer">

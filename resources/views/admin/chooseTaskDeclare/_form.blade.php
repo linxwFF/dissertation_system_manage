@@ -93,9 +93,5 @@
 
 </div>
 <script>
-    $(function () {
-        $('.all-check').on('click', function () {
 
-        });
-    });
 </script>

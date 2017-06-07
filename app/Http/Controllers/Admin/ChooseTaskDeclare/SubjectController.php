@@ -98,7 +98,7 @@ class SubjectController extends Controller
 
         //event(new \App\Events\userActionEvent('\App\Models\Admin\Role',$role->id,1,"用户".Auth::user()->username."{".Auth::user()->id."}添加角色".$role->name."{".$role->id."}"));
 
-        return redirect('/chooseTask/declare/taskCollect')->withSuccess('添加成功！');
+        return redirect('/chooseTask/declare/index')->withSuccess('添加成功！');
     }
 
     /**
@@ -109,7 +109,15 @@ class SubjectController extends Controller
      */
     public function show($id)
     {
+        $subject = Subject::find((int)$id);
+        //if (!$subject) return redirect('/admin/role')->withErrors("找不到该角色!");
 
+        foreach (array_keys($this->fields) as $field) {
+            $data[$field] = old($field, $subject->$field);
+        }
+        $data['id'] = $id;
+
+        return view('admin.chooseTaskDeclare.edit', $data);
     }
 
     /**
@@ -148,7 +156,7 @@ class SubjectController extends Controller
 
         //event(new \App\Events\userActionEvent('\App\Models\Admin\Role',$role->id,3,"用户".Auth::user()->username."{".Auth::user()->id."}编辑角色".$role->name."{".$role->id."}"));
 
-        return redirect('/chooseTask/declare/taskCollect')->withSuccess('修改成功！');
+        return redirect('/chooseTask/declare/index')->withSuccess('修改成功！');
     }
 
     /**

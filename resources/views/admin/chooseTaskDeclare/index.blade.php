@@ -50,7 +50,7 @@ $(function () {
                     order: [[1, "asc"]],
                     serverSide: true,
                     ajax: {
-                        url: '{{ route('chooseTask.declare.taskCollect.index') }}',
+                        url: '{{ route('chooseTask.declare.index') }}',
                         type: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -84,7 +84,7 @@ $(function () {
 
                             //编辑
                             if (row_edit) {
-                                str += '<a style="margin:3px;" href="/chooseTask/declare/taskCollect/' + row['id'] + '/edit" class="btn-xs text-success "><i class="ti-pencil"></i> 编辑</a>';
+                                str += '<a style="margin:3px;" href="/chooseTask/declare/' + row['id'] + '/edit" class="btn-xs text-success "><i class="ti-pencil"></i> 编辑</a>';
                             }
 
                             //删除
@@ -111,7 +111,7 @@ $(function () {
 
                 $("table").delegate('.delBtn', 'click', function () {
                     var id = $(this).attr('attr');
-                    $('.deleteForm').attr('action', '/chooseTask/declare/taskCollect/' + id);     //添加ID到表单
+                    $('.deleteForm').attr('action', '/chooseTask/declare/' + id);     //添加ID到表单
                     $("#modal-delete").modal();
                 });
 
@@ -137,9 +137,9 @@ $(function () {
 
                 </div>
 
-                @if(Gate::forUser(auth('admin')->user())->check('chooseTask.declare.taskIndex.index'))
+                @if(Gate::forUser(auth('admin')->user())->check('chooseTask.declare.create'))
                 <div class="col-md-6 text-right">
-                    <a href="/chooseTask/declare/taskCollect/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加角色 </a>
+                    <a href="/chooseTask/declare/create" class="btn btn-success btn-md"><i class="ti-plus"></i> 添加角色 </a>
                 </div>
                 @endif
                 </div>

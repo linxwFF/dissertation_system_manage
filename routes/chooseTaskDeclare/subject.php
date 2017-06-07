@@ -3,21 +3,29 @@
 // 使用 Auth 中间件,前缀 admin
 Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin'],'prefix' => 'chooseTask'], function () {
 
-    //课题申报 create  store
-    //课题审核 update   update
-    //课题情况汇总 chooseTask.declare.taskCollect.index
-    //课题删除  delete destroy
-    Route::get('declare/taskCollect/index', ['as' => 'chooseTask.declare.taskCollect.index', 'uses' => 'Admin\ChooseTaskDeclare\SubjectController@index']);
-    Route::post('declare/taskCollect/index', ['as' => 'chooseTask.declare.taskCollect.index', 'uses' => 'Admin\ChooseTaskDeclare\SubjectController@index']); //dataTable，Ajax请求数据
+    Route::get('declare/index', ['as' => 'chooseTask.declare.index', 'uses' => 'Admin\ChooseTaskDeclare\SubjectController@index']);
+    Route::post('declare/index', ['as' => 'chooseTask.declare.index', 'uses' => 'Admin\ChooseTaskDeclare\SubjectController@index']); //dataTable，Ajax请求数据
 
-    Route::get('declare/taskIndex/index', ['as' => 'chooseTask.declare.taskIndex.index', 'uses' => 'Admin\ChooseTaskDeclare\SubjectController@create']);    //课题申报页面
+    Route::get('declare/create', ['as' => 'chooseTask.declare.create', 'uses' => 'Admin\ChooseTaskDeclare\SubjectController@create']);    //课题申报页面
 
-    Route::resource('declare/taskCollect', 'Admin\ChooseTaskDeclare\SubjectController',
+    Route::resource('declare', 'Admin\ChooseTaskDeclare\SubjectController',
     ['names' =>
         [
-            'store' => 'chooseTask.declare.taskIndex.index',  //课题申报
-            'update' => 'chooseTask.declare.taskReview.index',  //课题审核
-            'destroy' => 'chooseTask.declare.subject.delete',  //课题删除
-          ]]);
+            'store' => 'chooseTask.declare.create',  //课题申报
+            'update' => 'chooseTask.declare.edit',  //课题修改
+            'destroy' => 'chooseTask.declare.destroy',  //课题删除
+    ]]);
 
 });
+
+//学生业务
+
+//----查看课题任务书
+
+//教师业务
+
+//----填写课题任务书  查看课题任务书  删除任务书
+
+//教研室业务
+
+//----填写课题任务书  查看课题任务书  删除任务书  更新状态（审核）
