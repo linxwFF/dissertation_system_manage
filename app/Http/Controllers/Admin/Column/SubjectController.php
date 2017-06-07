@@ -7,12 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Repositories\Eloquent\SubjectRepository;
 use Response;
+use App\Http\Requests\ColumnSubjectRequest;
 
 class SubjectController extends Controller
 {
     protected $Pepo;
 
-    public function __construct(SubjectRepository $Pepo)   //通过构造器注入
+    public function __construct(SubjectRepository $Pepo)   //通过构造器注入 (数据仓库类)
     {
         $this->Pepo = $Pepo;
     }
@@ -26,24 +27,12 @@ class SubjectController extends Controller
 
     public function index()
     {
-        $data = [
-            'data' => [],
-        ];
-        $Category = Category::orderBy('sort_order')->get();
-        // dd($Category);
-        foreach($Category as $k=>$v){
-            if($v['parent_id'] == '0'){
-                $data['data'][$v->id]['top'] = $v;
-            }else{
-                $data['data'][$v->parent_id]['sub'][] = $v;
-            }
-        }
-        // dd($data);
+        $data = $this->Pepo->table('desc');
         return view('admin.column.index', $data);
     }
 
     //添加新的栏目
-    public function addCategory(Request $request)
+    public function addCategory(ColumnSubjectRequest $request)
     {
         $input = $request->all();
         $result = $this->Pepo->store_one($input);
@@ -51,7 +40,7 @@ class SubjectController extends Controller
     }
 
     //修改栏目
-    public function editCategory(Request $request, $id)
+    public function editCategory(ColumnSubjectRequest $request, $id)
     {
         $input = $request->all();
         if(!empty($id) && $id>0){

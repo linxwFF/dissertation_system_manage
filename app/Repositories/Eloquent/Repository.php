@@ -216,10 +216,4 @@ abstract class Repository implements BaseInterface
           ];
           return $result;
       }
-
-
-      public function test()
-      {
-          echo Lang::get('messages.stored')."ssss";
-      }
 }

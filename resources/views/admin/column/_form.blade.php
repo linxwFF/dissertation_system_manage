@@ -8,12 +8,12 @@
 
         <label for="tag" class="col-md-1 control-label">栏目名称</label>
         <div class="col-md-2">
-            <input disabled="true" type="text" class="form-control" name="title" value="{{ $v['top']['title'] }}" autofocus >
+            <input disabled="true" type="text" class="form-control" name="title" value="{{ $v['top']['title'] }}" autofocus>
         </div>
 
         <label for="tag" class="col-md-1 control-label">排序</label>
         <div class="col-md-2">
-            <input disabled="true" type="number" class="form-control" name="sort_order" value="{{ $v['top']['sort_order']}}" autofocus >
+            <input disabled="true" type="number" class="form-control" name="sort_order" value="{{ $v['top']['sort_order']}}" autofocus>
         </div>
 
     </div>
@@ -50,7 +50,7 @@
 
             <label for="tag" class="col-md-1 control-label">栏目名称</label>
             <div class="col-md-2">
-                <input disabled="true" type="text" class="form-control" name="title" value="{{$vv['title']}}" autofocus>
+                <input disabled="true" type="text" class="form-control" name="title" value="{{$vv['title']}}" autofocus >
             </div>
 
              <label for="tag" class="col-md-1 control-label">排序</label>
@@ -86,7 +86,15 @@
 @section('extendJs')
 <!--Layer -->
 <script src="{{asset('back/plugins/layer/layer.js')}}"></script>
-
+<script>
+    function tips(msg, status){
+        layer.confirm(msg, {
+            btn: ['确定'] //按钮
+        }, function(){
+            window.location.reload();
+        });
+    }
+</script>
 <script>
 //添加表单
 function add_submit(id){
@@ -103,7 +111,19 @@ function add_submit(id){
         success:function(data){
             $('#'+ id +" input[class='form-control']").attr('disabled',true);
             $('button[onclick="add_submit('+id+')"]').attr('disabled',true);
-            window.location.reload();
+
+            tips(data.message); //提示
+
+            console.log(data);
+        },
+        error: function(jqXhr) {
+            var errors = jqXhr.responseJSON;
+
+            var errorHtml = '';
+            $.each(errors, function(index, value) {
+                errorHtml += value;
+            });
+            layer.alert(errorHtml, {icon: 2});
         }
     });
 
@@ -142,7 +162,16 @@ function update_parent_submit(id,count){
         success:function(data){
             $('#parent'+ count +" input[class='form-control']").attr('disabled',true);
             $('button[onclick="add_submit('+id+')"]').attr('disabled',true);
-            window.location.reload();
+            tips(data.message); //提示
+        },
+        error: function(jqXhr) {
+            var errors = jqXhr.responseJSON;
+
+            var errorHtml = '';
+            $.each(errors, function(index, value) {
+                errorHtml += value;
+            });
+            layer.alert(errorHtml, {icon: 2});
         }
     });
 }
@@ -160,7 +189,16 @@ function update_sub_submit(id){
         success:function(data){
             $('#sub'+ id +" input[class='form-control']").attr('disabled',true);
             $('button[onclick="add_submit('+id+')"]').attr('disabled',true);
-            window.location.reload();
+            tips(data.message); //提示
+        },
+        error: function(jqXhr) {
+            var errors = jqXhr.responseJSON;
+
+            var errorHtml = '';
+            $.each(errors, function(index, value) {
+                errorHtml += value;
+            });
+            layer.alert(errorHtml, {icon: 2});
         }
     });
 }
@@ -176,7 +214,7 @@ function delete_submit(id){
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         },
         success:function(data){
-            window.location.reload();
+            tips(data.message); //提示
         }
     });
 }

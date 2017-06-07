@@ -140,6 +140,7 @@ return [
         'available'             => '可用的',
         'size'                  => '大小',
         'role_id'               => '角色',
+        'sort_order'            => '排序',
     ],
 
 ];

@@ -14,5 +14,25 @@ class SubjectRepository extends Repository
     }
 
     // 以下可以重写基类方法
+    // 获取所有的数据
+    public function table($orderBy = 'desc')
+    {
+        $data = [
+            'data' => [],
+        ];
+        $model = $this->model();
+        $list = $model::orderBy('sort_order',$orderBy)->get();
+        // dd($Category);
+        foreach($list as $k=>$v){
+            if($v['parent_id'] == '0'){
+                $data['data'][$v->id]['top'] = $v;
+            }else{
+                $data['data'][$v->parent_id]['sub'][] = $v;
+            }
+        }
+        // dd($data);
+
+        return $data;
+    }
 
 }
